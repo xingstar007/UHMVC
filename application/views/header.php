@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="<?php echo assets_url('css/bootstrap.min.css'); ?>">
 <!-- Custom styles -->
 <link rel="stylesheet" href="<?php echo assets_url('css/main.css'); ?>">
-<?php echo $css; ?>
 <!-- / -->
 <!-- jQuery -->
 <script src="<?php echo assets_url('js/jquery.min.js')?> "></script>

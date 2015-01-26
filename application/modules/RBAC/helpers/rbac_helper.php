@@ -19,7 +19,7 @@ if(!function_exists('mem_inst'))
 	function mem_inst()
 	{
 		$ci_obj = &get_instance();
-		$ci_obj->config->load('RBAC/memcached',TRUE);
+		$ci_obj->config->load('memcached',TRUE);
 		if($ci_obj->config->item('flag','memcached')===FALSE) return FALSE;
 		$ci_obj->load->library('memcached');
 		static $static_memc;

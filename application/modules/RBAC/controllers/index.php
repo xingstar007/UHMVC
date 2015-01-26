@@ -12,7 +12,7 @@ class Index extends MX_Controller
 		parent::__construct();
 		$this->load->config('RBAC/rbac');
 		$this->load->helper('RBAC/rbac');
-		$this->load->library('memcached');
+		$this->load->library('response');
 		$this->load->library('template');
 	}
 	
@@ -24,9 +24,10 @@ class Index extends MX_Controller
 		//验证是否登录
 		if(!rbac_conf(array('INFO','id')))
 		{
-			error_redirct($this->config->item('rbac_auth_gateway'),"请先登录！");
+			$this->response->alert('test','good');
+			redirect($this->config->item('rbac_auth_gateway'));
 		}else{
-			success_redirct($this->config->item('rbac_default_index'),"您已成功登录,正在跳转请稍候！","1");
+			redirect($this->config->item('rbac_default_index'));
 		}
 		
 	}
@@ -46,7 +47,8 @@ class Index extends MX_Controller
 			{
 				redirect($this->config->item('rbac_default_index'));
 			}else{
-				redirect($this->config->item('rbac_auth_gateway'),'refresh');
+				$this->response->alert('test','good');
+				redirect($this->config->item('rbac_auth_gateway'));
 			}
 		}else{
 			$this->template->set_partial('header','header');
