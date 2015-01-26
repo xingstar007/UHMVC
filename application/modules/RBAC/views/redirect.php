@@ -1,5 +1,3 @@
-<?php $this->load->view('head');?>
-
 	<div class="container">
 		<div class="row" style="padding-top:100px">
 		
@@ -29,4 +27,3 @@
 				            },1000);
 				        };
 			</script>
-<?php $this->load->view("foot");?>

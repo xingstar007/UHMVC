@@ -15,7 +15,7 @@ if ( ! function_exists('assets_url'))
 
         $assets_url = $CI->config->item('assets_url');
 
-        return $assets_url . trim($uri, '/');
+        return base_url().$assets_url . trim($uri, '/');
     }
 }
 

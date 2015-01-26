@@ -85,21 +85,29 @@ if(!function_exists("error_redirct"))
 {
 	function error_redirct($url="",$contents="操作失败",$time = 3)
 	{
-		
 		$ci_obj = &get_instance();
+		
 		if($url!="")
 		{
-// 			$url = base_url("index.php/".$url);
+			$url = base_url("index.php/RBAC/".$url);
 		}else{
 			$url = isset($_SERVER["HTTP_REFERER"])?$_SERVER["HTTP_REFERER"]:site_url();
 		}
-		$data['url'] = $url;
-		$data['time'] = $time;
-		$data['type'] = "error";
-		$data['contents'] = $contents;
-		$ci_obj->load->view("RBAC/redirect",$data);
-		$ci_obj->output->_display($ci_obj->output->get_output());
-		die();
+		
+// 		$ci_obj->dialog(array(
+//             'title' => 'test',
+//             'body' => 'testbody',
+//             'buttons' => array('ok' => 'ok')
+//         ));
+// 		Header("HTTP/1.1 303 See Other"); //这条语句可以不写
+// 		Header("Location: $url");
+// 		$data['url'] = $url;
+// 		$data['time'] = $time;
+// 		$data['type'] = "error";
+// 		$data['contents'] = $contents;
+// 		$ci_obj->load->view("RBAC/redirect",$data);
+// 		$ci_obj->output->_display($ci_obj->output->get_output());
+// 		die();
 	}
 }
 

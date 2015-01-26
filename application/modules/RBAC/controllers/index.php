@@ -1,11 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * CI RBAC
  * RBAC中默认网关页面
- * @author		toryzen
- * @link		http://www.toryzen.com
  */
-class Index extends CI_Controller 
+class Index extends MX_Controller 
 {
 	
 	function __construct()
@@ -14,6 +13,7 @@ class Index extends CI_Controller
 		$this->load->config('RBAC/rbac');
 		$this->load->helper('RBAC/rbac');
 		$this->load->library('memcached');
+		$this->load->library('template');
 	}
 	
 	/**
@@ -33,28 +33,34 @@ class Index extends CI_Controller
 	/**
 	 * 用户登录
 	 */
-	public function login(){
+	public function login()
+	{
 		
-		$this->load->model("rbac_model");
+		$this->load->model("RBAC/rbac_model");
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		if($username&&$password){
+		if($username&&$password)
+		{
 			$STATUS = $this->rbac_model->check_user($username,md5($password));
-			if($STATUS===TRUE){
-				success_redirct($this->config->item('rbac_default_index'),"登录成功！");
+			if($STATUS===TRUE)
+			{
+				redirect($this->config->item('rbac_default_index'));
 			}else{
-				error_redirct($this->config->item('rbac_auth_gateway'),$STATUS);
-				die();
+				redirect($this->config->item('rbac_auth_gateway'),'refresh');
 			}
 		}else{
-			$this->load->view("login");
+			$this->template->set_partial('header','header');
+			$this->template->set_partial('footer','footer');
+			$this->template->build('RBAC/login');
+// 			$this->load->view("RBAC/login");
 		}
 		
 	}
 	/*
 	 * 用户退出
 	 */
-	public function logout(){
+	public function logout()
+	{
 		session_destroy();
 		success_redirct($this->config->item('rbac_auth_gateway'),"登出成功！",2);
 	}

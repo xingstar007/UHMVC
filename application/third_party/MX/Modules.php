@@ -69,6 +69,9 @@ class Modules
 				$args = func_get_args();
 				$output = call_user_func_array(array($class, $method), array_slice($args, 1));
 				$buffer = ob_get_clean();
+// 				if($output === NULL && $buffer === ''){
+// 					$output = CI::$APP->output->get_output();
+// 				}
 				return ($output !== NULL) ? $output : $buffer;
 			}
 		}
