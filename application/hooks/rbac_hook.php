@@ -26,7 +26,7 @@ class Rbac
 	public function aoto_verify()
 	{
 		//目录
-		$directory = substr($this->ci_obj->router->fetch_directory(),0,-1);
+		$directory = substr($this->ci_obj->router->fetch_directory(),11,-13);
 		//控制器
 		$controller = $this->ci_obj->router->fetch_class();
 		//方法
@@ -66,7 +66,7 @@ class Rbac
 					//验证ACL权限
 					if(!rbac_conf(array('ACL',$directory,$controller,$function)))
 					{
-						error_redirct("","无权访问此节点！(".$directory."/".$controller."/".$function.")");
+						error_redirct("","无权访问此节点！(目录".$directory."/控制器".$controller."/方法".$function.")");
 						die();
 					}
 				}

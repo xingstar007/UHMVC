@@ -2,7 +2,7 @@
 	<div class="sidebar-nav navbar-collapse" aria-expanded="false" style="height: 1px;">
 		<ul class="nav" id="side-menu">
 		<?php
-		foreach ( $template['partials']['menu'] as $mn )
+		foreach ( $menu as $mn )
 		{
 			if (@$mn ["shown"])
 			{
