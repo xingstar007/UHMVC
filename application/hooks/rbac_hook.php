@@ -108,7 +108,7 @@ class Rbac
 	*/
 	private function get_menu()
 	{		
-		$this->ci_obj->load->database();
+		$this->ci_obj->load->database('rbac');
 		$query = $this->ci_obj->db->query("SELECT rm.id,rm.title,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id WHERE rm.status = 1 AND rm.p_id is NULL ORDER BY sort asc");
 		$menu_data = $query->result();
 		$i = 0;

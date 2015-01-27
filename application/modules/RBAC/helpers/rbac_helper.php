@@ -67,6 +67,8 @@ if(!function_exists('rbac_conf'))
 		return isset($conf[count($arr_key)-1])?$conf[count($arr_key)-1]:FALSE;
 	}
 }
+
+
 //用户退出
 if(!function_exists('rbac_logout'))
 {
@@ -79,6 +81,7 @@ if(!function_exists('rbac_logout'))
 		session_destroy();
 	}
 }
+
 
 //错误跳转
 if(!function_exists("error_redirct"))
@@ -94,20 +97,13 @@ if(!function_exists("error_redirct"))
 			$url = isset($_SERVER["HTTP_REFERER"])?$_SERVER["HTTP_REFERER"]:site_url();
 		}
 		
-// 		$ci_obj->dialog(array(
-//             'title' => 'test',
-//             'body' => 'testbody',
-//             'buttons' => array('ok' => 'ok')
-//         ));
-// 		Header("HTTP/1.1 303 See Other"); //这条语句可以不写
-// 		Header("Location: $url");
-// 		$data['url'] = $url;
-// 		$data['time'] = $time;
-// 		$data['type'] = "error";
-// 		$data['contents'] = $contents;
-// 		$ci_obj->load->view("RBAC/redirect",$data);
-// 		$ci_obj->output->_display($ci_obj->output->get_output());
-// 		die();
+		$data['url'] = $url;
+		$data['time'] = $time;
+		$data['type'] = "error";
+		$data['contents'] = $contents;
+		$ci_obj->load->view("RBAC/redirect",$data);
+		$ci_obj->output->_display($ci_obj->output->get_output());
+		die();
 	}
 }
 

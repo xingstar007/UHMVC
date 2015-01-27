@@ -7,7 +7,7 @@ class Member_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->db = $this->load->database('release',true);
+		$this->db = $this->load->database('rbac',true);
 	}
 	
 	function getmembercount()

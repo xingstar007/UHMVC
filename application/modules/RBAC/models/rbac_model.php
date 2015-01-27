@@ -3,16 +3,15 @@
 /**
  * CI RBAC
  * 模型
- * @author		toryzen
- * @link		http://www.toryzen.com
  */
+
 class Rbac_model extends CI_Model
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->database('release',true);
+		$this->load->database('rbac',true);
 	}
 	
 	/*

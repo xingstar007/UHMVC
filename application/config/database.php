@@ -64,23 +64,23 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$active_group = 'release';
+$active_group = 'rbac';
 
-$db['release']['hostname'] = "127.0.0.1";
-$db['release']['username'] = "root";
-$db['release']['password'] = "root";
-$db['release']['database'] = "urelease";
-$db['release']['dbdriver'] = "mysql";
-$db['release']['dbprefix'] = "rel_";
-$db['release']['pconnect'] = TRUE;
-$db['release']['db_debug'] = TRUE;
-$db['release']['cache_on'] = FALSE;
-$db['release']['cachedir'] = "";
-$db['release']['char_set'] = "utf8";
-$db['release']['dbcollat'] = "utf8_general_ci";
-$db['release']['swap_pre'] = "rel_";
-$db['release']['autoinit'] = TRUE;
-$db['release']['stricton'] = FALSE;
+$db['rbac']['hostname'] = "127.0.0.1";
+$db['rbac']['username'] = "root";
+$db['rbac']['password'] = "root";
+$db['rbac']['database'] = "urelease";
+$db['rbac']['dbdriver'] = "mysql";
+$db['rbac']['dbprefix'] = "rel_";
+$db['rbac']['pconnect'] = TRUE;
+$db['rbac']['db_debug'] = TRUE;
+$db['rbac']['cache_on'] = FALSE;
+$db['rbac']['cachedir'] = "";
+$db['rbac']['char_set'] = "utf8";
+$db['rbac']['dbcollat'] = "utf8_general_ci";
+$db['rbac']['swap_pre'] = "rel_";
+$db['rbac']['autoinit'] = TRUE;
+$db['rbac']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

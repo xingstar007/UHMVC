@@ -11,6 +11,7 @@ class Menu extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('template');
 		$this->load->model('rbac/menu_model');
 	}
 
@@ -20,7 +21,10 @@ class Menu extends CI_Controller
 	public function index()
 	{
 		$menu_data = $this->menu_model->get_menu_list();
-		$this->load->view("manage/menu",$menu_data);
+		$this->template->set_partial('header','header');
+		$this->template->set_partial('footer','footer');
+		$this->template->build('RBAC/manage/menu',$menu_data);
+// 		$this->load->view("manage/menu",$menu_data);
 	}
 	
 	/**
