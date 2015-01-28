@@ -175,24 +175,17 @@ class Template {
         );
         $header = $this->_ci->load->view('header',$header_data, TRUE);
         $navi = $this->_ci->load->view('navi', array(), TRUE);
-        $menu = $this->_ci->load->view('menu', array(), TRUE);
+        $menu_data = array("menu"=>$this->_ci->get_menu);
+        $menu = $this->_ci->load->view('menu', $menu_data, TRUE);
         $footer = $this->_ci->load->view('footer', array(), TRUE);
         $body = $this->_ci->load->view($view, $data, TRUE);
 
-        $body = $this->_ci->load->view('layout/' . $this->layout, array(
-            'header' => $header,
-            'footer' => $footer,
-            'main_content' => $main_content,
-        ), TRUE);
-
-        return $this->_ci->load->view('base_view', array(
-            'title' => $title,
-            'description' => $description,
-            'metadata' => $metadata,
-            'js' => $js,
-            'css' => $css,
-            'body' => $body,
-            'ga_id' => $this->ga_id,
+        return $this->_ci->load->view('layouts/'.$this->layout, array(
+        		'header' => $header,
+        		'navi' => $navi,
+        		'menu' => $menu,
+        		'footer' => $footer,
+        		'body' => $body
         ), $return);
     }
 }
