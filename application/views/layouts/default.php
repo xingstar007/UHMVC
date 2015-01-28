@@ -1,19 +1,19 @@
 <!doctype html>
 <html class="no-js">
 	<head>
-		<?php echo $template['partials']['header']; ?>
+		<?php echo $header; ?>
 	</head>
 	<body>
 	<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-			<?php echo $template['partials']['navi']; ?>
-			<?php echo $template['partials']['menu']; ?>
+			<?php echo $navi; ?>
+			<?php echo $menu; ?>
 		</nav>
 		<div id="page-wrapper">
-			<?php echo $template['body']; ?>
+			<?php echo $main_content; ?>
 		</div>
 	</body>
 	<footer>
-		<?php echo $template['partials']['footer']; ?>
+		<?php echo $footer; ?>
 	</footer>
 </html>
