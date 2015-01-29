@@ -4,13 +4,15 @@
 		<?php echo $header; ?>
 	</head>
 	<body>
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-			<?php echo $navi; ?>
-			<?php echo $menu; ?>
-		</nav>
-		<div id="page-wrapper">
-			<?php echo $body; ?>
+		<div id="wrapper">
+			<!-- Navigation -->
+        	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<?php echo $navi; ?>
+				<?php echo $menu; ?>
+			</nav>
+			<div id="page-wrapper">
+				<?php echo $body; ?>
+			</div>
 		</div>
 	</body>
 	<footer>

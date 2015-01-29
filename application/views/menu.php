@@ -1,6 +1,5 @@
-<div class="navbar-default sidebar" role="navigation">
-	<div class="sidebar-nav navbar-collapse" aria-expanded="false" style="height: 1px;">
-		<ul class="nav" id="side-menu">
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+	<ul class="nav navbar-nav side-nav">
 		<?php
 		foreach ( $menu as $mn )
 		{
@@ -54,6 +53,5 @@
 			}
 		}
 		?>
-		</ul>
-	</div><!-- /.sidebar-collapse -->
-</div><!-- /.navbar-static-side -->
+	</ul>
+</div><!-- /.sidebar-collapse -->

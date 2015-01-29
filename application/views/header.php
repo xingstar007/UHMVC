@@ -13,7 +13,9 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="<?php echo assets_url('css/bootstrap.min.css'); ?>">
 <!-- Custom styles -->
-<link rel="stylesheet" href="<?php echo assets_url('css/main.css'); ?>">
+<link rel="stylesheet" href="<?php echo assets_url('css/sb-admin.css'); ?>">
+<!-- Custom Fonts -->
+<link href="<?php echo assets_url('font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
 <?php echo $css; ?>
 <!-- / -->
 <!-- jQuery -->

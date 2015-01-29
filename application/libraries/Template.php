@@ -175,8 +175,8 @@ class Template {
         );
         $header = $this->_ci->load->view('header',$header_data, TRUE);
         $navi = $this->_ci->load->view('navi', array(), TRUE);
-        $menu_data = array("menu"=>$this->_ci->get_menu);
-        $menu = $this->_ci->load->view('menu', $menu_data, TRUE);
+        $menu_data = array('menu' => $this->_ci->get_menu);
+        $menu = $this->_ci->load->view('menu', $menu_data , TRUE);
         $footer = $this->_ci->load->view('footer', array(), TRUE);
         $body = $this->_ci->load->view($view, $data, TRUE);
 
