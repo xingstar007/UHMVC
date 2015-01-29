@@ -31,7 +31,7 @@ class Member extends MX_Controller
 		$this->pagination->initialize($config);
 		
 		$data = $this->member_model->getmemberlist($page,$config['per_page']);
-		$this->load->view("RBAC/manage/member",array("data"=>$data));
+		$this->template->load_view('RBAC/manage/member',array("data"=>$data));
 	}
 	
 	/**

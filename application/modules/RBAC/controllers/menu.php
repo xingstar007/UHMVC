@@ -12,8 +12,7 @@ class Menu extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('RBAC/rbac');
-		$this->load->library('template');
-		$this->load->model('rbac/menu_model');
+		$this->load->model('RBAC/menu_model');
 	}
 
 	/**
@@ -22,12 +21,7 @@ class Menu extends CI_Controller
 	public function index()
 	{
 		$menu_data = $this->menu_model->get_menu_list();
-// 		$this->template->set_partial('header','header');
-// 		$this->template->set_partial('footer','footer');
-// 		$this->template->set_partial('navi','navi');
-// 		$this->template->set_partial('menu','menu',array('menu',$this->get_menu));
 		$this->template->load_view('RBAC/manage/menu',$menu_data);
-// 		$this->load->view("manage/menu",$menu_data);
 	}
 	
 	/**
