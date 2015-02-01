@@ -41,7 +41,7 @@ class Menu extends CI_Controller
 			}
 			$this->load->view("manage/menu/delete",$menu_data);
 		}else{
-			error_redirct("manage/menu/index","未找到此菜单");
+			error_redirct("未找到此菜单");
 		}
 	}
 	
@@ -65,14 +65,14 @@ class Menu extends CI_Controller
 					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
 					success_redirct("manage/menu/index","新增菜单成功！");
 				}else{
-					error_redirct("","标题不能为空！");
+					error_return("标题不能为空！");
 				}
 			}else{
-				error_redirct("","参数不正确！");
+				error_return("参数不正确！");
 			}
 		}
 		$node_data = $this->menu_model->show_node();
-		$this->load->view("manage/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
+		$this->template->load_view("manage/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 	}
 	
 	/**
@@ -95,10 +95,10 @@ class Menu extends CI_Controller
 					$this->menu_model->update_menu($status,$title,$sort,$node,$p_id,$id);
 					success_redirct("manage/menu/index","菜单修改成功！");
 				}else{
-					error_redirct("","标题不能为空！");
+					error_return("标题不能为空！");
 				}
 			}else{
-				error_redirct("","参数不正确！");
+				error_return("参数不正确！");
 			}
 		}
 		$data = $this->menu_model->check_menu($id);
@@ -107,7 +107,8 @@ class Menu extends CI_Controller
 			$node_data = $this->menu_model->show_node();
 			$this->load->view("manage/menu/edit",array("data"=>$data,"node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 		}else{
-			error_redirct("manage/menu/index","未找到此菜单");
+			error_return("未找到此菜单");
+			redirect(base_url('manage/menu/index'));
 		}
 	}
 	

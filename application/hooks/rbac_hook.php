@@ -14,10 +14,6 @@ class Rbac
 		$this->ci_obj = &get_instance();
 		$this->ci_obj->load->helper(array('RBAC/rbac','url'));
 		$this->ci_obj->load->config('RBAC/rbac');
-// 		if(!isset($this->ci_obj->view_override)){
-// 			//默认重写View开
-// 			$this->ci_obj->view_override = TRUE;
-// 		}
 	}
 	
 	/*
@@ -46,7 +42,7 @@ class Rbac
 					//echo rbac_conf(array('INFO','id'));
 					if(!rbac_conf(array('INFO','id')))
 					{
-						error_redirct($this->ci_obj->config->item('rbac_auth_gateway'),"请先登录！");
+						redirct($this->ci_obj->config->item('rbac_auth_gateway'));
 						die();
 					}
 					if($this->ci_obj->config->item('rbac_auth_type')==2)
@@ -57,7 +53,7 @@ class Rbac
 						$STATUS = $this->ci_obj->rbac_model->check_user_by_id(rbac_conf(array('INFO','id')));
 						if($STATUS==FALSE)
 						{
-							error_redirct($this->config->item('rbac_auth_gateway'),$STATUS);
+							redirct($this->config->item('rbac_auth_gateway'));
 						}
 						//ACL重新赋权
 						$this->ci_obj->rbac_model->get_acl(rbac_conf(array('INFO','role_id')));
@@ -66,7 +62,7 @@ class Rbac
 					//验证ACL权限
 					if(!rbac_conf(array('ACL',$directory,$controller,$function)))
 					{
-						error_redirct("","无权访问此节点！(目录".$directory."/控制器".$controller."/方法".$function.")");
+						error_redirct("无权访问此节点！(目录".$directory."/控制器".$controller."/方法".$function."))");
 						die();
 					}
 				}

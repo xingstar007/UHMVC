@@ -32,7 +32,7 @@
 								<h3 class="panel-title">用户登录</h3>
 							</div>
 							<div class="panel-body">
-								<form role="form"  action="" method="post">
+								<form id="login-info" role="form"  action="" method="post">
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon">用户</span>
@@ -46,7 +46,7 @@
 										</div>
 									</div>
 									<!--  	<input type="hidden" name="foward" value="null"/> -->
-									<button type="submit" class="btn btn-lg btn-success btn-block" data-loading-text="正在登录">登录</button>
+									<input  id="login" type="button" class="btn btn-lg btn-success btn-block" value="登录" data-loading-text="正在登录"/>
 								</form>
 							</div>
 						</div>
@@ -57,5 +57,32 @@
 		</div>
 	</body>
 	<footer>
+<script type="text/javascript"> 
+$(document).ready(function(){ 
+	$('#login').click(function(){
+		$.ajax({
+		    url: '<?php echo base_url('/Index/login');?>',
+		    type: 'post',
+		    dataType: 'json',
+		    data:$('#login-info').serialize(),
+		    timeout: 1000,
+		    error: function(){
+		        alert('Error');
+		    },
+		    success: function(data){
+// 		        alert(data.url);
+		        switch(data.type){
+		        	case 'error':
+		        		$('.alert').html(data.contents); 
+		        	  	break;
+		        	case 'success':
+		        		window.location.href = data.url; 
+		        	  break;
+		        }
+		    }
+		});
+	})
+})
+</script>
 	</footer>
 </html>

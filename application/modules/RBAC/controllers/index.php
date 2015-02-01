@@ -12,7 +12,6 @@ class Index extends CI_Controller
 		parent::__construct();
 		$this->load->config('RBAC/rbac');
 		$this->load->helper('RBAC/rbac');
-		$this->load->library('template');
 	}
 	
 	/**
@@ -27,8 +26,8 @@ class Index extends CI_Controller
 		}else{
 			redirect($this->config->item('rbac_default_index'));
 		}
-		
 	}
+	
 	/**
 	 * 用户登录
 	 */
@@ -43,14 +42,11 @@ class Index extends CI_Controller
 			$STATUS = $this->rbac_model->check_user($username,md5($password));
 			if($STATUS===TRUE)
 			{
-				redirect($this->config->item('rbac_default_index'));
+				success_redirct('登录成功',$this->config->item('rbac_default_index'));
 			}else{
-				redirect($this->config->item('rbac_auth_gateway'));
+				error_return('用户名或密码错误');
 			}
 		}else{
-// 			$this->template->set_partial('header','header');
-// 			$this->template->set_partial('footer','footer');
-// 			$this->template->build('RBAC/login');
 			$this->load->view("RBAC/login");
 		}
 		

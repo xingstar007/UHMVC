@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<script>
-				window.onload =function() {
+			$(document).ready(function() {
 				    var i = <?php echo $time-1; ?>;
 				            setInterval(function(){                
 				                document.getElementById("cnt").innerHTML = i--;
@@ -25,5 +25,5 @@
 					            }
 				 
 				            },1000);
-				        };
+				        });
 			</script>
