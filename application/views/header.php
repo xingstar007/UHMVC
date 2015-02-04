@@ -1,32 +1,21 @@
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
 <title><?php echo $title; ?></title>
 <meta name="description" content="<?php echo $description; ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Extra metadata -->
 <?php echo $metadata; ?>
 <!-- / -->
 
-<!-- favicon.ico and apple-touch-icon.png -->
+<link rel="stylesheet" href="<?php echo assets_url('css/style.default.css'); ?>">
+<link rel="stylesheet" href="<?php echo assets_url('css/jquery.datatables.css'); ?>">
 
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="<?php echo assets_url('css/bootstrap.min.css'); ?>">
-<!-- Custom styles -->
-<link rel="stylesheet" href="<?php echo assets_url('css/sb-admin.css'); ?>">
-<!-- Custom Fonts -->
-<link href="<?php echo assets_url('font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
+<!-- Extra Css -->
 <?php echo $css; ?>
-<!-- / -->
-<!-- jQuery -->
-<script src="<?php echo assets_url('js/jquery.min.js')?> "></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="<?php echo assets_url('js/bootstrap.min.js')?> "></script>
-<!-- Custom JS -->
-<script src="<?php echo assets_url('js/main.js')?> "></script>
-
-<!-- Extra javascript -->
-<?php echo $js; ?>
 <!-- / -->
 
 

@@ -170,20 +170,24 @@ class Template {
         	'title' => $title,'title' => $title,
             'description' => $description,
             'metadata' => $metadata,
-            'js' => $js,
             'css' => $css
         );
+        $footer_data = array(
+        		'js' => $js
+        );
+        $menu_data = array(
+        		'menulist' => $this->_ci->get_menu
+        );
         $header = $this->_ci->load->view('header',$header_data, TRUE);
-        $navi = $this->_ci->load->view('navi', array(), TRUE);
-        $menu_data = array('menu' => $this->_ci->get_menu);
-        $menu = $this->_ci->load->view('menu', $menu_data , TRUE);
-        $footer = $this->_ci->load->view('footer', array(), TRUE);
+        $headerbar = $this->_ci->load->view('headerbar', array(), TRUE);
+        $navigation = $this->_ci->load->view('navigation', $menu_data , TRUE);
+        $footer = $this->_ci->load->view('footer', $footer_data, TRUE);
         $body = $this->_ci->load->view($view, $data, TRUE);
 
         return $this->_ci->load->view('layouts/'.$this->layout, array(
         		'header' => $header,
-        		'navi' => $navi,
-        		'menu' => $menu,
+        		'headerbar' => $headerbar,
+        		'navigation' => $navigation,
         		'footer' => $footer,
         		'body' => $body
         ), $return);

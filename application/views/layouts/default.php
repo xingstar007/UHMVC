@@ -1,19 +1,31 @@
-<!doctype html>
-<html class="no-js">
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<?php echo $header; ?>
 	</head>
 	<body>
-		<div id="wrapper">
-			<!-- Navigation -->
-        	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<?php echo $navi; ?>
-				<?php echo $menu; ?>
-			</nav>
-			<div id="page-wrapper">
-				<?php echo $body; ?>
-			</div>
-		</div>
+		<section>
+			<div class="leftpanel">
+				<div class="logopanel">
+        			<h1><span>[</span> bracket <span>]</span></h1>
+    			</div><!-- logopanel -->
+    			<div class="leftpanelinner">
+					<?php echo $navigation; ?>
+				</div><!-- leftpanelinner -->
+  			</div><!-- leftpanel -->
+  			
+  		  	<div class="mainpanel">
+    			<div class="headerbar">
+      				<?php echo $headerbar; ?>
+				</div><!-- headerbar -->
+				<div class="pageheader">
+					<h2><i class="fa fa-home"></i> Dashboard <span>Subtitle goes here...</span></h2>
+				</div>
+				<div class="contentpanel">
+					<?php echo $body; ?>
+				</div><!-- contentpanel -->
+  			</div><!-- mainpanel -->
+  		</section>
 	</body>
 	<footer>
 		<?php echo $footer; ?>
