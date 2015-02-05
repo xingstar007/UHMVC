@@ -23,7 +23,7 @@
 			<p class="mt5 mb20">Login to access your account.</p>
 			<input type="text" name="username" class="form-control uname" placeholder="Username" />
 			<input type="password" name="password" class="form-control pword" placeholder="Password" />
-			<button id="login" class="btn btn-success btn-block" data-loading-text="正在登录">Sign In</button>
+			<button id="login" class="btn btn-success btn-block" onclick = "" data-loading-text="正在登录">Sign In</button>
 		</form>
 		<div class="alert alert-success">测试用帐号（用户:admin 密码:admin）</div>
 	</div><!-- col-sm-5 -->
@@ -48,10 +48,11 @@ $(document).ready(function(){
 		        	  	break;
 		        	case 'success':
 		        		window.location.href = data.url; 
-		        	  break;
+		        	  	break;
 		        }
 		    }
 		});
+		return false;
 	})
 })
 </script>

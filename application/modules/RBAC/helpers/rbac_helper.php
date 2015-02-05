@@ -85,7 +85,7 @@ if(!function_exists('rbac_logout'))
 //错误页面HTML
 if(!function_exists("error_redirct"))
 {
-	function error_redirct($contents = "操作失败",$url = "",$time = 3)
+	function error_redirct($contents = "操作失败",$url = "")
 	{
 		$ci_obj = &get_instance();
 		if($url!=""){
@@ -94,66 +94,41 @@ if(!function_exists("error_redirct"))
 			$url = isset($_SERVER["HTTP_REFERER"])?$_SERVER["HTTP_REFERER"]:site_url();
 		}
 		$data['url'] = $url;
-		$data['time'] = $time;
 		$data['type'] = "error";
 		$data['contents'] = $contents;
-		$ci_obj->load->view("redirect",$data);
-		$ci_obj->output->_display($ci_obj->output->get_output());
-		die();
+		if($ci_obj->input->is_ajax_request()){
+			$ci_obj->output->set_content_type('application/json');
+			echo json_encode($data);
+		}else {
+			$ci_obj->template->set_layout("single_page");
+			$ci_obj->template->load_view("RBAC/redirect",$data);
+			$ci_obj->output->_display($ci_obj->output->get_output());
+			die();
+// 			redirect($url);
+		}
 	}
 }
 
 //正确跳转
 if(!function_exists("success_redirct"))
 {
-	function success_redirct($contents="操作成功",$url="",$time=3)
+	function success_redirct($contents="操作成功",$url="")
 	{
 		$ci_obj = &get_instance();
 		if($url!=""){
-			$url = base_url("index.php/".$url);
+			$url = base_url($url);
 		}else{
 			$url = isset($_SERVER["HTTP_REFERER"])?$_SERVER["HTTP_REFERER"]:site_url();
 		}
 		$data['url'] = $url;
-		$data['time'] = $time;
 		$data['type'] = "success";
 		$data['contents'] = $contents;
-		$ci_obj->load->view("RBAC/redirect",$data);
-		$ci_obj->output->_display($ci_obj->output->get_output());
-		die();
-	}
-}
-
-//返回错误信息JSON格式
-if(!function_exists("error_json"))
-{
-	function error_json($contents="操作失败",$url="")
-	{
-		$ci_obj = &get_instance();
-		if($url!="")
+		if($ci_obj->input->is_ajax_request())
 		{
-			$data['url'] = base_url($url);
+			$ci_obj->output->set_content_type('application/json');
+			echo json_encode($data);
+		}else {
+			redirect($url);
 		}
-		$data['type'] = "error";
-		$data['contents'] = $contents;
-		$ci_obj->output->set_content_type('application/json');
-		echo json_encode($data);
-	}
-}
-
-//返回正确信息JSON格式
-if(!function_exists("success_json"))
-{
-	function success_json($contents="操作成功",$url="")
-	{
-		$ci_obj = &get_instance();
-		if($url!="")
-		{
-			$data['url'] = base_url($url);
-		}
-		$data['type'] = "success";
-		$data['contents'] = $contents;
-		$ci_obj->output->set_content_type('application/json');
-		echo json_encode($data);
 	}
 }

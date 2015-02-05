@@ -44,7 +44,7 @@ class Index extends CI_Controller
 			{
 				success_redirct('登录成功',$this->config->item('rbac_default_index'));
 			}else{
-				error_json('用户名或密码错误');
+				error_redirct('用户名或密码错误');
 			}
 		}else{
 			$this->template->set_layout("single_page");
@@ -58,7 +58,7 @@ class Index extends CI_Controller
 	public function logout()
 	{
 		session_destroy();
-		success_redirct($this->config->item('rbac_auth_gateway'),"登出成功！",2);
+		success_redirct("登出成功！",$this->config->item('rbac_auth_gateway'));
 	}
 
 }
