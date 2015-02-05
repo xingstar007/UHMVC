@@ -101,7 +101,7 @@ if(!function_exists("error_redirct"))
 			echo json_encode($data);
 		}else {
 			$ci_obj->template->set_layout("single_page");
-			$ci_obj->template->load_view("RBAC/redirect",$data);
+			$ci_obj->template->load_view("redirect",$data);
 			$ci_obj->output->_display($ci_obj->output->get_output());
 			die();
 // 			redirect($url);

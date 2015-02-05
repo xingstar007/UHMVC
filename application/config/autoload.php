@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database','template');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url','rbac');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url');
 |
 */
 
-$autoload['config'] = array('assets');
+$autoload['config'] = array('assets','rbac');
 
 
 /*

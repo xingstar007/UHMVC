@@ -17,7 +17,7 @@ foreach($menu as $mn){
 				<a href="'.site_url("RBAC/menu/edit/".$mn["self"]->id."/1/NULL").'">
 					<i class="fa fa-pencil"></i>
 				</a>
-				<a href="'.site_url("RBAC/menu/delete/".$mn["self"]->id).'">
+				<a class="del-menu" rel="'.$mn["self"]->id.'" href="'.site_url("RBAC/menu/delete/".$mn["self"]->id).'">
 					<i class="fa fa-trash-o"></i>	
 				</a>
 				<a href="'.site_url("RBAC/menu/add/".$mn["self"]->id."/1/".$mn["self"]->id).'">
@@ -36,7 +36,7 @@ foreach($menu as $mn){
 					  <a href="'.site_url("RBAC/menu/edit/".$cmn["self"]->id."/2/".$mn["self"]->id).'">
 							<i class="fa fa-pencil"></i>
 					  </a>
-					  <a href="'.site_url("RBAC/menu/delete/".$cmn["self"]->id).'">
+					  <a class="del-menu" rel="'.$cmn["self"]->id.'" href="'.site_url("RBAC/menu/delete/".$cmn["self"]->id).'">
 							<i class="fa fa-trash-o"></i>	
 					  </a>
 				</td>
@@ -49,21 +49,22 @@ foreach($menu as $mn){
 ?>
 <hr/>
 <div class="menu-alert alert alert-danger" style="display:none"></div>
-<?php echo '<button class="add-menu btn btn-success  pull-right" href="'.site_url("RBAC/menu/add/".$mn["self"]->id."/1/NULL").'">新增一级菜单</button>'; ?>
+<button class="add-menu btn btn-success  pull-right" href = " <?php echo site_url("RBAC/menu/add/".$mn["self"]->id."/1/NULL");?> " > 新增一级菜单</button>; ?>
 
 <script type="text/javascript"> 
 $(document).ready(function(){ 
 	$('.add-menu').click(function(){
-		$('#page-wrapper').load($(this).attr('href'));
+		$('.contentpanel').load($(this).attr('href'));
 // 		var urltmp = $(this).attr('href');
 
 	})
 
-	$('.add-menu').click(function(){
+	$('.del-menu').click(function(){
 		$.ajax({
-	    url: $(this).attr('href'),
-	    type: 'post',
-	    dataType: 'html',
+	    	url: $(this).attr('href'),
+	    	type: 'post',
+	    	dataType: 'json',
+	    	data: {'id': $(this).attr('rel')}
 //		data:$('#login-info').serialize(),
 	    timeout: 1000,
 	    error: function(){
@@ -71,18 +72,18 @@ $(document).ready(function(){
 	    },
 	    success: function(data){
 //		    alert(data);
-	    	$('#page-wrapper').html(data);
 	        switch(data.type){
 	        	case 'error':
 	        		$('.menu-alert').show().html(data.contents); 
 	        	  	break;
 	        	case 'success':
-	        		$('#page-wrapper').html(data.contents);
+	        		$('.contentpanel').load(data.url);
 	        	  break;
 	        }
 	    }
+	    
 	});
-
+		return false;
 	})
 })
 </script>

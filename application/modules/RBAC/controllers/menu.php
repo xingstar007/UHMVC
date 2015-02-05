@@ -11,7 +11,6 @@ class Menu extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('RBAC/rbac');
 		$this->load->model('RBAC/menu_model');
 	}
 
@@ -21,7 +20,7 @@ class Menu extends CI_Controller
 	public function index()
 	{
 		$menu_data = $this->menu_model->get_menu_list();
-		$this->template->load_view('RBAC/manage/menu',$menu_data);
+		$this->template->load_view('RBAC/menu',$menu_data);
 	}
 	
 	/**
@@ -29,19 +28,18 @@ class Menu extends CI_Controller
 	 */
 	public function delete($id)
 	{
+		if($this->input->is_ajax_request())
+		{
+			$id = $this->input->post("id");
+		}
 		if($this->menu_model->check_menu($id))
 		{
 			//获取当前节点及其子节点
 			$menu_data = $this->menu_model->get_menu_list($id);
-			if($this->input->post())
-			{
-				$verfiy = $this->input->post("verfiy");
-				$this->menu_model->delete_menu($menu_data);
-				success_redirct("manage/menu/index","菜单删除成功");
-			}
-			$this->load->view("manage/menu/delete",$menu_data);
+			$this->menu_model->delete_menu($menu_data);
+			success_redirct("菜单删除成功","RBAC/menu/");
 		}else{
-			error_redirct("未找到此菜单");
+			error_redirct("未找到此菜单","RBAC/menu/");
 		}
 	}
 	
@@ -63,16 +61,16 @@ class Menu extends CI_Controller
 					$p_id   = $this->input->post("p_id");
 					$status = $this->input->post("status")==""?"0":"1";
 					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
-					success_redirct("manage/menu/index","新增菜单成功！");
+					success_redirct("新增菜单成功！","RBAC/menu/index");
 				}else{
-					error_return("标题不能为空！");
+					error_redirct("标题不能为空！");
 				}
 			}else{
-				error_return("参数不正确！");
+				error_redirct("参数不正确！");
 			}
 		}
 		$node_data = $this->menu_model->show_node();
-		$this->template->load_view("manage/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
+		$this->template->load_view("RBAC/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 	}
 	
 	/**

@@ -12,8 +12,6 @@ class Rbac
 	public function __construct()
 	{
 		$this->ci_obj = &get_instance();
-		$this->ci_obj->load->helper(array('RBAC/rbac','url'));
-		$this->ci_obj->load->config('RBAC/rbac');
 	}
 	
 	/*
@@ -84,21 +82,6 @@ class Rbac
 		}
 	}
 		
-	/*
-	 * 重写View
-	 */
-	public function view_override() 
-	{
-		$directory = substr($this->ci_obj->router->fetch_directory(),0,-1);
-		if(@$this->ci_obj->view_override&&$directory!="")
-		{
-			$html = $this->ci_obj->load->view('main', null, true);
-		}else{
-			$html = $this->ci_obj->output->get_output();
-		}
-		$this->ci_obj->output->_display($html);
-	}
-	
 	/*
 	 * 获取左侧菜单
 	*/

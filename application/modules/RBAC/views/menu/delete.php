@@ -23,19 +23,6 @@ foreach($menu as $mn){
 			  	<td>'.$cmn["self"]->sort.'</td>
 			  	<td>'.($cmn["self"]->status==1?"显示":"隐藏").'</td>
 			  </tr>';
-			
-			if(isset($cmn["child"])){
-				foreach($cmn["child"] as $gcmn){
-					echo '<tr>
-						  	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			  					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			  					'.($gcmn["self"]->node_id?$havechild:"").$gcmn["self"]->title.'</td>
-						  	<td>'.($gcmn["self"]->memo?$gcmn["self"]->memo.$gcmn["self"]->dcf:"未挂接").'</td>
-			  				<td>'.$gcmn["self"]->sort.'</td>
-						  	<td>'.($gcmn["self"]->status==1?"显示":"隐藏").'</td>
-						  </tr>';
-				}
-			}
 		}
 	}
 	echo '</table>';

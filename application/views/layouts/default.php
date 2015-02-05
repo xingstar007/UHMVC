@@ -18,9 +18,6 @@
     			<div class="headerbar">
       				<?php echo $headerbar; ?>
 				</div><!-- headerbar -->
-				<div class="pageheader">
-					<h2><i class="fa fa-home"></i> Dashboard <span>Subtitle goes here...</span></h2>
-				</div>
 				<div class="contentpanel">
 					<?php echo $body; ?>
 				</div><!-- contentpanel -->

@@ -10,8 +10,6 @@ class Index extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->config('RBAC/rbac');
-		$this->load->helper('RBAC/rbac');
 	}
 	
 	/**
@@ -48,7 +46,7 @@ class Index extends CI_Controller
 			}
 		}else{
 			$this->template->set_layout("single_page");
-			$this->template->load_view("RBAC/login");
+			$this->template->load_view("login");
 		}
 		
 	}
