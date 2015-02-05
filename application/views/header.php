@@ -18,6 +18,7 @@
 <?php echo $css; ?>
 <!-- / -->
 
+<script src="<?php echo assets_url('js/jquery-1.10.2.min.js')?> "></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

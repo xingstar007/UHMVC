@@ -42,7 +42,7 @@ class Rbac
 					//echo rbac_conf(array('INFO','id'));
 					if(!rbac_conf(array('INFO','id')))
 					{
-						redirct($this->ci_obj->config->item('rbac_auth_gateway'));
+						redirect($this->ci_obj->config->item('rbac_auth_gateway'));
 						die();
 					}
 					if($this->ci_obj->config->item('rbac_auth_type')==2)
@@ -53,7 +53,7 @@ class Rbac
 						$STATUS = $this->ci_obj->rbac_model->check_user_by_id(rbac_conf(array('INFO','id')));
 						if($STATUS==FALSE)
 						{
-							redirct($this->config->item('rbac_auth_gateway'));
+							redirect($this->config->item('rbac_auth_gateway'));
 						}
 						//ACL重新赋权
 						$this->ci_obj->rbac_model->get_acl(rbac_conf(array('INFO','role_id')));

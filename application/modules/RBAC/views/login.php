@@ -1,62 +1,33 @@
-<!doctype html>
-<html class="no-js">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title><?php  if(isset($template['title'])) echo $template['title']; ?></title>
-		<meta name="description" content="<?php if(isset($template['description'])) echo $template['description']; ?>">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<!-- favicon.ico and apple-touch-icon.png -->
-
-		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" href="<?php echo assets_url('css/bootstrap.min.css'); ?>">
-		<!-- jQuery -->
-		<script src="<?php echo assets_url('js/jquery.min.js')?> "></script>
-		<!-- Bootstrap Core JavaScript -->
-		<script src="<?php echo assets_url('js/bootstrap.min.js')?> "></script>
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-		<div class="container">
-			<div id="page-wrapper">
-				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
-						<div class="login-panel panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">用户登录</h3>
-							</div>
-							<div class="panel-body">
-								<form id="login-info" role="form"  action="" method="post">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">用户</span>
-											<input type="text" class="form-control" placeholder="请输入用户" name="username">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">密码</span>
-											<input type="password" class="form-control" placeholder="请输入密码" name="password">
-										</div>
-									</div>
-									<!--  	<input type="hidden" name="foward" value="null"/> -->
-									<input  id="login" type="button" class="btn btn-lg btn-success btn-block" value="登录" data-loading-text="正在登录"/>
-								</form>
-							</div>
-						</div>
-						<div class="alert alert-success">测试用帐号（用户:admin 密码:admin）</div>
-					</div>
-				</div>		
-			</div>
-		</div>
-	</body>
-	<footer>
+<div class="row">
+	<div class="col-md-7">
+		<div class="signin-info">
+			<div class="logopanel">
+				<h1><span>[</span> bracket <span>]</span></h1>
+ 			</div><!-- logopanel -->
+ 			<div class="mb20"></div>
+  			<h5><strong>Welcome to Bracket Bootstrap 3 Template!</strong></h5>
+			<ul>
+				<li><i class="fa fa-arrow-circle-o-right mr5"></i> Fully Responsive Layout</li>
+				<li><i class="fa fa-arrow-circle-o-right mr5"></i> HTML5/CSS3 Valid</li>
+				<li><i class="fa fa-arrow-circle-o-right mr5"></i> Retina Ready</li>
+				<li><i class="fa fa-arrow-circle-o-right mr5"></i> WYSIWYG CKEditor</li>
+				<li><i class="fa fa-arrow-circle-o-right mr5"></i> and much more...</li>
+			</ul>
+            <div class="mb20"></div>
+		</div><!-- signin0-info -->
+	</div><!-- col-sm-7 -->
+	
+	<div class="col-md-5">
+		<form id="login-info" method="post" action="<?php echo base_url('/Index/login');?>">
+			<h4 class="nomargin">Sign In</h4>
+			<p class="mt5 mb20">Login to access your account.</p>
+			<input type="text" name="username" class="form-control uname" placeholder="Username" />
+			<input type="password" name="password" class="form-control pword" placeholder="Password" />
+			<button id="login" class="btn btn-success btn-block" data-loading-text="正在登录">Sign In</button>
+		</form>
+		<div class="alert alert-success">测试用帐号（用户:admin 密码:admin）</div>
+	</div><!-- col-sm-5 -->
+</div><!-- row -->
 <script type="text/javascript"> 
 $(document).ready(function(){ 
 	$('#login').click(function(){
@@ -84,5 +55,3 @@ $(document).ready(function(){
 	})
 })
 </script>
-	</footer>
-</html>

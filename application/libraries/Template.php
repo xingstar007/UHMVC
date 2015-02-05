@@ -113,7 +113,7 @@ class Template {
      * @param   boolean $return
      * @return  void
      */
-    public function load_view($view, $data = array(), $return = FALSE)
+    public function load_view($view, $data = array(), $return_type = FALSE)
     {
         // Not include master view on ajax request
         if ($this->_ci->input->is_ajax_request())
@@ -175,22 +175,33 @@ class Template {
         $footer_data = array(
         		'js' => $js
         );
-        $menu_data = array(
-        		'menulist' => $this->_ci->get_menu
-        );
+        
         $header = $this->_ci->load->view('header',$header_data, TRUE);
-        $headerbar = $this->_ci->load->view('headerbar', array(), TRUE);
-        $navigation = $this->_ci->load->view('navigation', $menu_data , TRUE);
         $footer = $this->_ci->load->view('footer', $footer_data, TRUE);
         $body = $this->_ci->load->view($view, $data, TRUE);
-
-        return $this->_ci->load->view('layouts/'.$this->layout, array(
-        		'header' => $header,
-        		'headerbar' => $headerbar,
-        		'navigation' => $navigation,
-        		'footer' => $footer,
-        		'body' => $body
-        ), $return);
+        
+        if($this->layout == 'default')
+        {
+        	$menu_data = array(
+        			'menulist' => $this->_ci->get_menu
+        	);
+        	$headerbar = $this->_ci->load->view('headerbar', array(), TRUE);
+        	$navigation = $this->_ci->load->view('navigation', $menu_data , TRUE);
+        	$return = $this->_ci->load->view('layouts/'.$this->layout, array(
+        			'header' => $header,
+        			'headerbar' => $headerbar,
+        			'navigation' => $navigation,
+        			'footer' => $footer,
+        			'body' => $body
+        	), $return_type);
+        }else {
+        	$return = $this->_ci->load->view('layouts/'.$this->layout, array(
+        			'header' => $header,
+        			'footer' => $footer,
+        			'body' => $body
+        	), $return_type);
+        }
+        return $return;
     }
 }
 

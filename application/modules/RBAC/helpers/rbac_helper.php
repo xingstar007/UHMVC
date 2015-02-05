@@ -82,41 +82,6 @@ if(!function_exists('rbac_logout'))
 	}
 }
 
-
-//返回错误信息JSON格式
-if(!function_exists("error_json"))
-{
-	function error_json($contents="操作失败",$url="")
-	{
-		$ci_obj = &get_instance();
-		if($url!="")
-		{
-			$data['url'] = base_url($url);
-		}
-		$data['type'] = "error";
-		$data['contents'] = $contents;
-		$ci_obj->output->set_content_type('application/json');
-		echo json_encode($data);
-	}
-}
-
-//返回正确信息JSON格式
-if(!function_exists("success_json"))
-{
-	function success_json($contents="操作成功",$url="")
-	{
-		$ci_obj = &get_instance();
-		if($url!="")
-		{
-			$data['url'] = base_url($url);
-		}
-		$data['type'] = "success";
-		$data['contents'] = $contents;
-		$ci_obj->output->set_content_type('application/json');
-		echo json_encode($data);
-	}
-}
-
 //错误页面HTML
 if(!function_exists("error_redirct"))
 {
@@ -153,8 +118,42 @@ if(!function_exists("success_redirct"))
 		$data['time'] = $time;
 		$data['type'] = "success";
 		$data['contents'] = $contents;
-		$ci_obj->load->view("redirect",$data);
+		$ci_obj->load->view("RBAC/redirect",$data);
 		$ci_obj->output->_display($ci_obj->output->get_output());
 		die();
+	}
+}
+
+//返回错误信息JSON格式
+if(!function_exists("error_json"))
+{
+	function error_json($contents="操作失败",$url="")
+	{
+		$ci_obj = &get_instance();
+		if($url!="")
+		{
+			$data['url'] = base_url($url);
+		}
+		$data['type'] = "error";
+		$data['contents'] = $contents;
+		$ci_obj->output->set_content_type('application/json');
+		echo json_encode($data);
+	}
+}
+
+//返回正确信息JSON格式
+if(!function_exists("success_json"))
+{
+	function success_json($contents="操作成功",$url="")
+	{
+		$ci_obj = &get_instance();
+		if($url!="")
+		{
+			$data['url'] = base_url($url);
+		}
+		$data['type'] = "success";
+		$data['contents'] = $contents;
+		$ci_obj->output->set_content_type('application/json');
+		echo json_encode($data);
 	}
 }

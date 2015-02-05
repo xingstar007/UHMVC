@@ -3,12 +3,12 @@
 	<head>
 		<?php echo $header; ?>
 	</head>
-	<body>
-		<div id="wrapper">
-			<div id="page-wrapper">
+	<body class="signin">
+		<section>
+			<div class="signinpanel">
 				<?php echo $body; ?>
-			</div>
-		</div>
+    		</div><!-- signin -->
+		</section>
 	</body>
 	<footer>
 		<?php echo $footer; ?>

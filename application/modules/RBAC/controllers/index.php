@@ -44,10 +44,11 @@ class Index extends CI_Controller
 			{
 				success_redirct('登录成功',$this->config->item('rbac_default_index'));
 			}else{
-				error_return('用户名或密码错误');
+				error_json('用户名或密码错误');
 			}
 		}else{
-			$this->load->view("RBAC/login");
+			$this->template->set_layout("single_page");
+			$this->template->load_view("RBAC/login");
 		}
 		
 	}
