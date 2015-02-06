@@ -28,18 +28,19 @@ class Menu extends CI_Controller
 	 */
 	public function delete($id)
 	{
-		if($this->input->is_ajax_request())
-		{
-			$id = $this->input->post("id");
-		}
 		if($this->menu_model->check_menu($id))
 		{
 			//获取当前节点及其子节点
 			$menu_data = $this->menu_model->get_menu_list($id);
-			$this->menu_model->delete_menu($menu_data);
-			success_redirct("菜单删除成功","RBAC/menu/");
+			if($this->input->post())
+			{
+				$verfiy = $this->input->post("verfiy");
+				$this->menu_model->delete_menu($menu_data);
+				success_redirct("菜单删除成功","RBAC/menu/index");
+			}
+			$this->template->load_view("RBAC/menu/delete",$menu_data);
 		}else{
-			error_redirct("未找到此菜单","RBAC/menu/");
+			error_redirct("未找到此菜单","RBAC/menu/index");
 		}
 	}
 	
@@ -48,33 +49,27 @@ class Menu extends CI_Controller
 	*/
 	public function add($id,$level,$p_id)
 	{
-		if($this->input->is_ajax_request())
+		if($this->input->post())
 		{
-			$id = $this->input->post("id");
+			$title = $this->input->post("title");
+			$sort = $this->input->post("sort");
+			$node = $this->input->post("node");
 			$level = $this->input->post("level");
-			$p_id = $this->input->post("pid");
+			if($id&&$level)
+			{
+				if($title)
+				{
+					$p_id   = $this->input->post("p_id");
+					$status = $this->input->post("status")==""?"0":"1";
+					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
+					success_redirct("新增菜单成功！","RBAC/menu/index");
+				}else{
+					error_redirct("标题不能为空！");
+				}
+			}else{
+				error_redirct("参数不正确！");
+			}
 		}
-// 		if($this->input->post())
-// 		{
-// 			$title = $this->input->post("title");
-// 			$sort = $this->input->post("sort");
-// 			$node = $this->input->post("node");
-// 			$level = $this->input->post("level");
-// 			if($id&&$level)
-// 			{
-// 				if($title)
-// 				{
-// 					$p_id   = $this->input->post("p_id");
-// 					$status = $this->input->post("status")==""?"0":"1";
-// 					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
-// 					success_redirct("新增菜单成功！","RBAC/menu/index");
-// 				}else{
-// 					error_redirct("标题不能为空！");
-// 				}
-// 			}else{
-// 				error_redirct("参数不正确！");
-// 			}
-// 		}
 		$node_data = $this->menu_model->show_node();
 		$this->template->load_view("RBAC/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 	}

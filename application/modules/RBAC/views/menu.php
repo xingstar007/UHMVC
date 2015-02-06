@@ -21,13 +21,13 @@ foreach($menu as $mn){
 		<td><?php echo $sort;?></td>
 		<td><?php echo $status;?></td>
 		<td class="table-action pull-left">
-			<a href="javascript:edit_menu('<?php echo site_url("RBAC/menu/edit/"); ?>',{'id':'<?php echo $id;?>','type':'1'}">
+			<a href="<?php echo site_url("RBAC/menu/edit/$id/1/"); ?>">
 				<i class="fa fa-pencil"></i>
 			</a>
-			<a href="javascript:del_menu('<?php echo site_url("RBAC/menu/delete/"); ?>','<?php echo $id;?>')">
+			<a href="<?php echo site_url("RBAC/menu/delete/$id"); ?>">
 				<i class="fa fa-trash-o"></i>	
 			</a>
-			<a href="javascript:add_menu('<?php echo site_url("RBAC/menu/add/"); ?>','<?php echo $id;?>','1','<?php echo $id;?>')">
+			<a href="<?php echo site_url("RBAC/menu/add/$id/1/$id"); ?>">
 				<i class="fa fa-plus"></i>		
 			</a>
 		</td>
@@ -49,10 +49,10 @@ foreach($menu as $mn){
 		<td><?php echo $csort;?></td>
 		<td><?php echo $cstatus;?></td>
 		<td class="table-action pull-left">
-			<a href="javascript:edit_menu('<?php echo site_url("RBAC/menu/edit/");?>',{'cid':'<?php echo $cid;?>','type':'2'}">
+			<a href="<?php echo site_url("RBAC/menu/edit/$cid/2/"); ?>">
 				<i class="fa fa-pencil"></i>
 			</a>
-			<a href="javascript:del_menu('<?php echo site_url("RBAC/menu/delete/"); ?>',{'cid':'<?php echo $cid;?>'}">
+			<a href="<?php echo site_url("RBAC/menu/delete/$cid"); ?>">
 				<i class="fa fa-trash-o"></i>	
 			</a>
 		</td>
@@ -67,56 +67,4 @@ foreach($menu as $mn){
 }
 ?>
 <hr/>
-<div class="menu-alert alert alert-danger" style="display:none"></div>
-<button class="add-menu btn btn-success  pull-right" href = " <?php echo site_url("RBAC/menu/add/".$mn["self"]->id."/1/NULL");?> " > 新增一级菜单</button>
-
-<script type="text/javascript">
-function del_menu(url,mid) { 
-	$.ajax({
-    	url: url,
-    	type: 'post',
-    	dataType: 'json',
-    	data: {'id' : mid},
-		timeout: 1000,
- 		error: function(){
-			alert('Error');
-		},
-		success: function(data){
-			switch(data.type){
-				case 'error':
-					$('.menu-alert').show().html(data.contents); 
- 					break;
-				case 'success':
-					$('.contentpanel').load(data.url);
-					break;
-			}
-		}
-	});
-}
-
-function add_menu(url,mid,type,pid) { 
-	$.ajax({
-    	url: url,
-    	type: 'post',
-    	dataType: 'html',
-    	data: {'id' : mid,'level' : type,'pid' : pid},
-		timeout: 1000,
- 		error: function(){
-			alert('Error');
-		},
-		success: function(data){
-// 			switch(data.type){
-// 				case 'error':
-// 					$('.menu-alert').show().html(data.contents); 
-//  					break;
-// 				case 'success':
-					$('.contentpanel').html(data);
-// 					break;
-// 			}
-		}
-	});
-}
-
-
-
-</script>
+<a class="btn btn-success  pull-right" href = "<?php echo site_url("RBAC/menu/add/".$mn["self"]->id."/1/NULL");?> " > 新增一级菜单</a>
