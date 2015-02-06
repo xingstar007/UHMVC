@@ -48,27 +48,33 @@ class Menu extends CI_Controller
 	*/
 	public function add($id,$level,$p_id)
 	{
-		if($this->input->post())
+		if($this->input->is_ajax_request())
 		{
-			$title = $this->input->post("title");
-			$sort = $this->input->post("sort");
-			$node = $this->input->post("node");
+			$id = $this->input->post("id");
 			$level = $this->input->post("level");
-			if($id&&$level)
-			{
-				if($title)
-				{
-					$p_id   = $this->input->post("p_id");
-					$status = $this->input->post("status")==""?"0":"1";
-					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
-					success_redirct("新增菜单成功！","RBAC/menu/index");
-				}else{
-					error_redirct("标题不能为空！");
-				}
-			}else{
-				error_redirct("参数不正确！");
-			}
+			$p_id = $this->input->post("pid");
 		}
+// 		if($this->input->post())
+// 		{
+// 			$title = $this->input->post("title");
+// 			$sort = $this->input->post("sort");
+// 			$node = $this->input->post("node");
+// 			$level = $this->input->post("level");
+// 			if($id&&$level)
+// 			{
+// 				if($title)
+// 				{
+// 					$p_id   = $this->input->post("p_id");
+// 					$status = $this->input->post("status")==""?"0":"1";
+// 					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
+// 					success_redirct("新增菜单成功！","RBAC/menu/index");
+// 				}else{
+// 					error_redirct("标题不能为空！");
+// 				}
+// 			}else{
+// 				error_redirct("参数不正确！");
+// 			}
+// 		}
 		$node_data = $this->menu_model->show_node();
 		$this->template->load_view("RBAC/menu/add",array("node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 	}
