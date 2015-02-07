@@ -52,6 +52,7 @@ class Menu extends CI_Controller
 		if($this->input->post())
 		{
 			$title = $this->input->post("title");
+			$icon = $this->input->post("icon");
 			$sort = $this->input->post("sort");
 			$node = $this->input->post("node");
 			$level = $this->input->post("level");
@@ -61,7 +62,7 @@ class Menu extends CI_Controller
 				{
 					$p_id   = $this->input->post("p_id");
 					$status = $this->input->post("status")==""?"0":"1";
-					$this->menu_model->add_menu($status,$title,$sort,$node,$p_id);
+					$this->menu_model->add_menu($status,$title,$icon,$sort,$node,$p_id);
 					success_redirct("新增菜单成功！","RBAC/menu/index");
 				}else{
 					error_redirct("标题不能为空！");

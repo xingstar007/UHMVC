@@ -75,7 +75,7 @@ class Menu_model extends CI_Model
 	/**
 	 * 菜单新增
 	 */
-	function add_menu($status,$title,$sort,$node,$p_id)
+	function add_menu($status,$title,$icon,$sort,$node,$p_id)
 	{
 		if($node == '')
 		{
@@ -85,8 +85,8 @@ class Menu_model extends CI_Model
 		{
 			$p_id = null;
 		}
-		$sql = "INSERT INTO rbac_menu (`status`,`title`,`sort`,`node_id`,`p_id`) 
-				values( '{$status}','{$title}','{$sort}','{$node}',{$p_id})";
+		$sql = "INSERT INTO rbac_menu (`status`,`title`,`icon`,`sort`,`node_id`,`p_id`) 
+				values( '{$status}','{$title}','{$icon}','{$sort}','{$node}',{$p_id})";
 		$this->db->query($sql);
 	}
 	

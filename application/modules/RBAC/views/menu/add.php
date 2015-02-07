@@ -5,6 +5,10 @@
     <input name="title" type="text" class="form-control" placeholder="在此输入标题" value="">
   </div>
   <div class="form-group">
+    <label>图标</label>
+    <input name="icon" type="text" class="form-control" placeholder="在此输入标题" value="">
+  </div>
+  <div class="form-group">
     <label>挂接节点</label>
     <select name="node"  class="form-control">
     	<option value=''>不进行挂接</option>
