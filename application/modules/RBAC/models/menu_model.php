@@ -1,4 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * CI RBAC
+ * RBAC管理后台中菜单模型
+ * @author		star
+ * @link		http://www.icyao.com
+ */
 class Menu_model extends CI_Model
 {
 	
@@ -38,16 +44,16 @@ class Menu_model extends CI_Model
 			$id_list = "";
 			foreach($menu_data as $vo)
 			{
-				if($i==2)
-				{
-					$vo->p_p_id = $Tmp_menu[1][$vo->p_id]->p_id;
-				}
 				$Tmp_menu[$i][$vo->id] = $vo;
 				$id_list .= $vo->id.",";
 				$all_id_list .= $vo->id.",";
 			}
 			$id_list = substr($id_list,0,-1);
-			$query = $this->db->query("SELECT rm.*,rn.memo,concat(' [',rn.dirc,'/',rn.cont,'/',rn.func,']') as dcf FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id WHERE rm.p_id in (".$id_list.") ORDER BY sort asc");
+			$sql = "SELECT rm.*,rn.memo,concat(' [',rn.dirc,'/',rn.cont,'/',rn.func,']') as dcf 
+					FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
+					WHERE rm.p_id in (".$id_list.")
+					ORDER BY sort asc";
+			$query = $this->db->query($sql);
 			$menu_data = $query->result();
 			$i++;
 		}
@@ -61,8 +67,6 @@ class Menu_model extends CI_Model
 					$menu[$cvo->id]["self"] = $cvo;
 				}elseif($j==1){
 					$menu[$cvo->p_id]["child"][$cvo->id]["self"] = $cvo;
-				}else{
-					$menu[$cvo->p_p_id]["child"][$cvo->p_id]["child"][$cvo->id]["self"] =$cvo;
 				}
 			}
 			$j++;
@@ -74,14 +78,16 @@ class Menu_model extends CI_Model
 	
 	/**
 	 * 菜单新增
+	 * @param string $status,$title,$icon,$sort,$node,$p_id
+	 * @return boolean
 	 */
 	function add_menu($status,$title,$icon,$sort,$node,$p_id)
 	{
-		if($node == '')
+		if(empty($node)||is_null($node))
 		{
-			$node = null;
+			$node = 0;
 		}
-		if($p_id == '')
+		if(empty($p_id))
 		{
 			$p_id = null;
 		}
@@ -91,7 +97,7 @@ class Menu_model extends CI_Model
 	}
 	
 	/**
-	 * 菜单新增
+	 * 显示节点
 	 */
 	function show_node()
 	{
@@ -109,7 +115,7 @@ class Menu_model extends CI_Model
 	}
 	
 	/**
-	 * 菜单新增
+	 * 检测菜单是否存在
 	 */
 	function check_menu($id)
 	{

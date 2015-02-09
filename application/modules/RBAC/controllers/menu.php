@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CI RBAC
- * RBAC管理后台中菜单模块
- * @author		toryzen
- * @link		http://www.toryzen.com
+ * RBAC管理后台中菜单控制器
+ * @author		star
+ * @link		http://www.icyao.com
  */
 class Menu extends CI_Controller 
 {
