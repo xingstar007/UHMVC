@@ -19,8 +19,33 @@ class Menu extends CI_Controller
 	 */
 	public function index()
 	{
-		$menu_data = $this->menu_model->get_menu_list();
-		$this->template->load_view('RBAC/menu',$menu_data);
+		$menu_list = $this->menu_model->get_menu_list();
+		
+		foreach($menu_list['first'] as $menu_first_data)
+		{
+			$menu_data[$menu_first_data->id]['self'] = array(
+				'icon' => $menu_first_data->icon,
+				'title' => $menu_first_data->title,
+				'node' => $menu_first_data->memo,
+				'dcf' => $menu_first_data->dcf,
+				'sort' => $menu_first_data->sort,
+				'status' => $menu_first_data->status,
+				'id' => $menu_first_data->id
+			);
+		}
+		foreach($menu_list['second'] as $menu_second_data)
+		{
+			$menu_data[$menu_second_data->p_id]['child'][$menu_second_data->id]['self'] = array(
+				'icon' => $menu_second_data->icon,
+				'title' => $menu_second_data->title,
+				'node' => $menu_second_data->memo,
+				'dcf' => $menu_first_data->dcf,
+				'sort' => $menu_second_data->sort,
+				'status' => $menu_second_data->status,
+				'id' => $menu_second_data->id
+			);
+		}
+		$this->template->load_view('RBAC/menu',array('menu_data'=>$menu_data));
 	}
 	
 	/**
@@ -30,15 +55,38 @@ class Menu extends CI_Controller
 	{
 		if($this->menu_model->check_menu($id))
 		{
-			//获取当前节点及其子节点
-			$menu_data = $this->menu_model->get_menu_list($id);
 			if($this->input->post())
 			{
 				$verfiy = $this->input->post("verfiy");
 				$this->menu_model->delete_menu($menu_data);
 				success_redirct("菜单删除成功","RBAC/menu/index");
 			}
-			$this->template->load_view("RBAC/menu/delete",$menu_data);
+			//获取当前节点及其子节点
+			$menu_data = $this->menu_model->get_menu_list($id);
+			foreach($menu_data['first'] as $menu_first_data)
+			{
+				$return['self'] = array(
+					'icon' => $menu_first_data->icon,
+					'title' => $menu_first_data->title,
+					'node' => $menu_first_data->memo,
+					'sort' => $menu_first_data->sort,
+					'status' => $menu_first_data->status,
+				);
+			}
+			if(!empty($menu_data['second']))
+			{
+				foreach($menu_data['second'] as $menu_second_data)
+				{
+					$return['child'] = array(
+						'icon' => $menu_second_data->icon,
+						'title' => $menu_second_data->title,
+						'node' => $menu_second_data->memo,
+						'sort' => $menu_second_data->sort,
+						'status' => $menu_second_data->status,
+					);
+				}
+			}
+			$this->template->load_view("RBAC/menu/delete",array('menu' => $return));
 		}else{
 			error_redirct("未找到此菜单","RBAC/menu/index");
 		}
@@ -47,7 +95,7 @@ class Menu extends CI_Controller
 	/**
 	 * 菜单新增
 	*/
-	public function add($id,$level,$p_id)
+	public function add($level,$p_id)
 	{
 		if($this->input->post())
 		{
@@ -56,7 +104,7 @@ class Menu extends CI_Controller
 			$sort = $this->input->post("sort");
 			$node = $this->input->post("node");
 			$level = $this->input->post("level");
-			if($id&&$level)
+			if($level)
 			{
 				if($title)
 				{

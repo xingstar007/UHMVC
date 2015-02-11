@@ -36,43 +36,19 @@ class Menu_model extends CI_Model
 				WHERE ".($id==NULL?"rm.p_id  is NULL":"rm.id  = '".$id."'")." {$rbac_where} 
 				ORDER BY sort asc";
 		$query = $this->db->query($sql);
-		$menu_data = $query->result();
-		$i = 0;
-		$all_id_list = "";
-		while(count($menu_data)>0)
+		$return['first'] = $query->result();
+		$id_list = "";
+		foreach ($return['first'] as $first)
 		{
-			$id_list = "";
-			foreach($menu_data as $vo)
-			{
-				$Tmp_menu[$i][$vo->id] = $vo;
-				$id_list .= $vo->id.",";
-				$all_id_list .= $vo->id.",";
-			}
-			$id_list = substr($id_list,0,-1);
-			$sql = "SELECT rm.*,rn.memo,concat(' [',rn.dirc,'/',rn.cont,'/',rn.func,']') as dcf 
-					FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
-					WHERE rm.p_id in (".$id_list.")
-					ORDER BY sort asc";
-			$query = $this->db->query($sql);
-			$menu_data = $query->result();
-			$i++;
+			$id_list .= $first->id.",";
 		}
-		$j = 0;
-		foreach($Tmp_menu as $vo)
-		{
-			foreach($vo as $cvo)
-			{
-				if($j==0)
-				{
-					$menu[$cvo->id]["self"] = $cvo;
-				}elseif($j==1){
-					$menu[$cvo->p_id]["child"][$cvo->id]["self"] = $cvo;
-				}
-			}
-			$j++;
-		}
-		$return["id_list"] = substr($all_id_list,0,-1);
-		$return["menu"]    = $menu;
+		$id_list = substr($id_list,0,-1);
+		$sql = "SELECT rm.*,rn.memo,concat(' [',rn.dirc,'/',rn.cont,'/',rn.func,']') as dcf 
+				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
+				WHERE rm.p_id in (".$id_list.")
+				ORDER BY sort asc";
+		$query = $this->db->query($sql);
+		$return['second'] = $query->result();
 		return $return;
 	}
 	
