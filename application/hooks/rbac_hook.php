@@ -87,90 +87,36 @@ class Rbac
 	*/
 	private function get_menu()
 	{		
-// 		$this->ci_obj->load->database('rbac');
-// 		$query = $this->ci_obj->db->query("SELECT rm.id,rm.title,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id WHERE rm.status = 1 AND rm.p_id is NULL ORDER BY sort asc");
-// 		$menu_data = $query->result();
-// 		$i = 0;
-// 		while(count($menu_data)>0)
-// 		{
-// 			$id_list = "";
-// 			foreach($menu_data as $vo){
-// 				if($i==2)
-// 				{
-// 					$vo->p_p_id = $Tmp_menu[1][$vo->p_id]->p_id;
-// 				}
-// 				$Tmp_menu[$i][$vo->id] = $vo;
-// 				$id_list .= $vo->id.",";
-// 			}
-// 			$id_list = substr($id_list,0,-1);
-// 			$query = $this->ci_obj->db->query("SELECT rm.id,rm.title,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id WHERE rm.status = 1 AND rm.p_id in (".$id_list.") ORDER BY sort asc");
-// 			$menu_data = $query->result();
-// 			$i++;
-// 		}
-// 		$j = 0;
-// 		//按权限进行展示
-// 		foreach($Tmp_menu as $vo)
-// 		{
-// 			foreach($vo as $cvo)
-// 			{
-// 				$menu['list'][md5($cvo->dirc.$cvo->cont.$cvo->func)] = $cvo->title;
-// 				if(rbac_conf(array('ACL',$cvo->dirc,$cvo->cont,$cvo->func))||!$cvo->node_id)
-// 				{
-// 					if($j==0)
-// 					{
-// 						if(rbac_conf(array('ACL',$cvo->dirc,$cvo->cont,$cvo->func)))
-// 						{
-// 							$menu[$cvo->id]["shown"] = 1;
-// 						}
-// 						$menu[$cvo->id]["self"] = array("title"=>$cvo->title,"uri"=>$cvo->dirc?$cvo->dirc."/".$cvo->cont."/".$cvo->func:$cvo->cont."/".$cvo->func);
-							
-// 					}elseif($j==1){
-// 						if(rbac_conf(array('ACL',$cvo->dirc,$cvo->cont,$cvo->func)))
-// 						{
-// 							$menu[$cvo->p_id]["shown"] = 1;
-// 							$menu[$cvo->p_id]["child"][$cvo->id]["shown"] = 1;
-// 						}
-// 						$menu[$cvo->p_id]["child"][$cvo->id]["self"] = array("title"=>$cvo->title,"uri"=>$cvo->dirc?$cvo->dirc."/".$cvo->cont."/".$cvo->func:$cvo->cont."/".$cvo->func);
-							
-// 					}else{
-// 						if(rbac_conf(array('ACL',$cvo->dirc,$cvo->cont,$cvo->func)))
-// 						{
-// 							$menu[$cvo->p_p_id]["shown"] = 1;
-// 							$menu[$cvo->p_p_id]["child"][$cvo->p_id]["shown"] = 1;
-// 							$menu[$cvo->p_p_id]["child"][$cvo->p_id]["child"][$cvo->id]["shown"] = 1;
-// 						}
-// 						$menu[$cvo->p_p_id]["child"][$cvo->p_id]["child"][$cvo->id]["self"] = array("title"=>$cvo->title,"uri"=>$cvo->dirc?$cvo->dirc."/".$cvo->cont."/".$cvo->func:$cvo->cont."/".$cvo->func);
-// 					}
-// 				}
-// 			}
-// 			$j++;
-// 		}
-		//print_r($menu);
 		$this->ci_obj->load->model("rbac_model");
-		$menu_father_data = $this->ci_obj->rbac_model->get_menu_father_data();
-		$menu_child_data = $this->ci_obj->rbac_model->get_menu_child_data();
+		$menu_all_data = $this->ci_obj->rbac_model->get_menu_data();
+		$menu_father_data = $menu_all_data['first'];
+		$menu_child_data = $menu_all_data['second'];
+// 		$menu['list'][md5($cvo->dirc.$cvo->cont.$cvo->func)] = $cvo->title;
 		foreach ($menu_father_data as $mf)
 		{
 			if(rbac_conf(array('ACL',$mf->dirc,$mf->cont,$mf->func))||!$mf->node_id)
 			{
 				$menu_data[$mf->id]['self'] = array(
 						'title' => $mf->title,
+						'icon' => $mf->icon,
 						'uri' => $mf->dirc?$mf->dirc."/".$mf->cont."/".$mf->func:$mf->cont."/".$mf->func
 				);
 			}
 		}
-		foreach ($menu_child_data as $mc)
+		if(!empty($menu_child_data))
 		{
-			if(rbac_conf(array('ACL',$mc->dirc,$mc->cont,$mc->func)))
+			foreach ($menu_child_data as $mc)
 			{
-				$menu_data[$mc->p_id]['child'][$mc->id]['self'] = array(
-						'title' => $mc->title,
-						'uri' => $mc->dirc?$mc->dirc."/".$mc->cont."/".$mc->func:$mc->cont."/".$mc->func
-				);
+				if(rbac_conf(array('ACL',$mc->dirc,$mc->cont,$mc->func)))
+				{
+					$menu_data[$mc->p_id]['child'][$mc->id]['self'] = array(
+							'title' => $mc->title,
+							'icon' => $mc->icon,
+							'uri' => $mc->dirc?$mc->dirc."/".$mc->cont."/".$mc->func:$mc->cont."/".$mc->func
+					);
+				}
 			}
 		}
-		
-		
 		return $menu_data;
 	}
 }

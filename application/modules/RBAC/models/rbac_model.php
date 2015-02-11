@@ -47,8 +47,7 @@ class Rbac_model extends CI_Model
 					rbac_conf(array('INFO','nickname'),$data['nickname']);
 					$this->get_acl($data['role_id']);
 					return TRUE;
-				}
-				else{
+				}else{
 					return "用户密码错误！";
 				}
 			}else{
@@ -85,30 +84,29 @@ class Rbac_model extends CI_Model
 	}
 
 	/*
-	 * 用户登录检测 By id
+	 * 获取菜单数据
 	*/
-	public function get_menu_father_data()
+	public function get_menu_data()
 	{
 		$sql = "SELECT rm.id,rm.title,rm.icon,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func 
 				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
 				WHERE rm.status = 1 AND rm.p_id is NULL 
 				ORDER BY sort asc";
 		$query = $this->db->query($sql);
-		return $query->result();
-	}
-
-	/*
-	 * 用户登录检测 By id
-	*/
-	public function get_menu_child_data()
-	{
+		$return['first'] = $query->result();
+		$id_list = "";
+		foreach ($return['first'] as $first)
+		{
+			$id_list .= $first->id.",";
+		}
+		$id_list = substr($id_list,0,-1);
 		$sql = "SELECT rm.id,rm.title,rm.icon,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func
 				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id
-				WHERE rm.status = 1 AND rm.p_id is not null
+				WHERE rm.status = 1 AND rm.p_id in (".$id_list.")
 				ORDER BY sort asc";
 		$query = $this->db->query($sql);
-		return $query->result();
+		$return['second'] = $query->result();
+		return $return;
 	}
-	
 	
 }

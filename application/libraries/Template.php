@@ -183,7 +183,7 @@ class Template {
         if($this->layout == 'default')
         {
         	$menu_data = array(
-        			'menulist' => $this->_ci->get_menu
+        			'menu_list' => $this->_ci->get_menu
         	);
         	$headerbar = $this->_ci->load->view('headerbar', array(), TRUE);
         	$navigation = $this->_ci->load->view('navigation', $menu_data , TRUE);
