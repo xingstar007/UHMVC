@@ -83,5 +83,32 @@ class Rbac_model extends CI_Model
 			return "该用户不存！";
 		}
 	}
+
+	/*
+	 * 用户登录检测 By id
+	*/
+	public function get_menu_father_data()
+	{
+		$sql = "SELECT rm.id,rm.title,rm.icon,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func 
+				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
+				WHERE rm.status = 1 AND rm.p_id is NULL 
+				ORDER BY sort asc";
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+
+	/*
+	 * 用户登录检测 By id
+	*/
+	public function get_menu_child_data()
+	{
+		$sql = "SELECT rm.id,rm.title,rm.icon,rm.node_id,rm.p_id,rn.dirc,rn.cont,rn.func
+				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id
+				WHERE rm.status = 1 AND rm.p_id is not null
+				ORDER BY sort asc";
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+	
 	
 }
