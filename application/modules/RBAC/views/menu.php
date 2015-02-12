@@ -3,10 +3,9 @@
 .table td:nth-child(2){width:40%}
 </style>
 <?php
-$default_icon = "<i class='fa fa-book'></i>" ;
 foreach($menu_data as $menu_frist)
 {
-	$icon = $menu_frist["self"]['icon']?"<i class='fa ".$menu_frist["self"]['icon']."'></i>":$default_icon;
+	$icon = "<i class='fa ".$menu_frist["self"]['icon']."'></i>";
 	$title = $menu_frist["self"]['title'];
 	$node = ($menu_frist["self"]['node']?$menu_frist["self"]['node'].$menu_frist["self"]['dcf']:"未挂接");
 	$sort = $menu_frist["self"]['sort'];
@@ -37,7 +36,7 @@ foreach($menu_data as $menu_frist)
 	{
 		foreach($menu_frist["child"] as $menu_second)
 		{
-			$icon_child = $menu_second["self"]['icon']?"<i class='fa ".$menu_second["self"]['icon']."'></i>":$default_icon;
+			$icon_child = "<i class='fa ".$menu_second["self"]['icon']."'></i>";
 			$title_child = $menu_second["self"]['title'];
 			$node_child = ($menu_second["self"]['node']?$menu_second["self"]['node'].$menu_second["self"]['dcf']:"未挂接");
 			$sort_child = $menu_second["self"]['sort'];

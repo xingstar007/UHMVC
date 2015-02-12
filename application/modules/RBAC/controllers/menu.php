@@ -24,7 +24,7 @@ class Menu extends CI_Controller
 		foreach($menu_list['first'] as $menu_first_data)
 		{
 			$menu_data[$menu_first_data->id]['self'] = array(
-				'icon' => $menu_first_data->icon,
+				'icon' => $menu_first_data->icon?$menu_first_data->icon:$this->config->item('default_menu_icon'),
 				'title' => $menu_first_data->title,
 				'node' => $menu_first_data->memo,
 				'dcf' => $menu_first_data->dcf,
@@ -36,10 +36,10 @@ class Menu extends CI_Controller
 		foreach($menu_list['second'] as $menu_second_data)
 		{
 			$menu_data[$menu_second_data->p_id]['child'][$menu_second_data->id]['self'] = array(
-				'icon' => $menu_second_data->icon,
+				'icon' => $menu_second_data->icon?$menu_second_data->icon:$this->config->item('default_link_icon'),
 				'title' => $menu_second_data->title,
 				'node' => $menu_second_data->memo,
-				'dcf' => $menu_first_data->dcf,
+				'dcf' => $menu_second_data->dcf,
 				'sort' => $menu_second_data->sort,
 				'status' => $menu_second_data->status,
 				'id' => $menu_second_data->id
@@ -65,8 +65,8 @@ class Menu extends CI_Controller
 			$menu_data = $this->menu_model->get_menu_list($id);
 			foreach($menu_data['first'] as $menu_first_data)
 			{
-				$return['self'] = array(
-					'icon' => $menu_first_data->icon,
+				$return[$menu_first_data->id]['self'] = array(
+					'icon' => $menu_first_data->icon?$menu_first_data->icon:$this->config->item('default_menu_icon'),
 					'title' => $menu_first_data->title,
 					'node' => $menu_first_data->memo,
 					'sort' => $menu_first_data->sort,
@@ -77,8 +77,8 @@ class Menu extends CI_Controller
 			{
 				foreach($menu_data['second'] as $menu_second_data)
 				{
-					$return['child'] = array(
-						'icon' => $menu_second_data->icon,
+					$return[$menu_second_data->p_id]['child'][$menu_second_data->id]['self'] = array(
+						'icon' => $menu_second_data->icon?$menu_second_data->icon:$this->config->item('default_link_icon'),
 						'title' => $menu_second_data->title,
 						'node' => $menu_second_data->memo,
 						'sort' => $menu_second_data->sort,
@@ -86,7 +86,7 @@ class Menu extends CI_Controller
 					);
 				}
 			}
-			$this->template->load_view("RBAC/menu/delete",array('menu' => $return));
+			$this->template->load_view("RBAC/menu/delete",array('menu_data' => $return));
 		}else{
 			error_redirct("未找到此菜单","RBAC/menu/index");
 		}

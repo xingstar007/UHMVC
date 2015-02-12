@@ -51,7 +51,7 @@ class Rbac
 						$STATUS = $this->ci_obj->rbac_model->check_user_by_id(rbac_conf(array('INFO','id')));
 						if($STATUS==FALSE)
 						{
-							redirect($this->config->item('rbac_auth_gateway'));
+							redirect($this->ci_obj->config->item('rbac_auth_gateway'));
 						}
 						//ACL重新赋权
 						$this->ci_obj->rbac_model->get_acl(rbac_conf(array('INFO','role_id')));
@@ -89,30 +89,30 @@ class Rbac
 	{		
 		$this->ci_obj->load->model("rbac_model");
 		$menu_all_data = $this->ci_obj->rbac_model->get_menu_data();
-		$menu_father_data = $menu_all_data['first'];
-		$menu_child_data = $menu_all_data['second'];
+		$menu_first_data = $menu_all_data['first'];
+		$menu_second_data = $menu_all_data['second'];
 // 		$menu['list'][md5($cvo->dirc.$cvo->cont.$cvo->func)] = $cvo->title;
-		foreach ($menu_father_data as $mf)
+		foreach ($menu_first_data as $mf)
 		{
 			if(rbac_conf(array('ACL',$mf->dirc,$mf->cont,$mf->func))||!$mf->node_id)
 			{
 				$menu_data[$mf->id]['self'] = array(
-						'title' => $mf->title,
-						'icon' => $mf->icon,
-						'uri' => $mf->dirc?$mf->dirc."/".$mf->cont."/".$mf->func:$mf->cont."/".$mf->func
+					'title' => $mf->title,
+					'icon' => $mf->icon?$mf->icon:$this->ci_obj->config->item('default_menu_icon'),
+					'uri' => $mf->dirc?$mf->dirc."/".$mf->cont."/".$mf->func:$mf->cont."/".$mf->func
 				);
 			}
 		}
-		if(!empty($menu_child_data))
+		if(!empty($menu_second_data))
 		{
-			foreach ($menu_child_data as $mc)
+			foreach ($menu_second_data as $ms)
 			{
-				if(rbac_conf(array('ACL',$mc->dirc,$mc->cont,$mc->func)))
+				if(rbac_conf(array('ACL',$ms->dirc,$ms->cont,$ms->func)))
 				{
-					$menu_data[$mc->p_id]['child'][$mc->id]['self'] = array(
-							'title' => $mc->title,
-							'icon' => $mc->icon,
-							'uri' => $mc->dirc?$mc->dirc."/".$mc->cont."/".$mc->func:$mc->cont."/".$mc->func
+					$menu_data[$ms->p_id]['child'][$ms->id]['self'] = array(
+						'title' => $ms->title,
+						'icon' => $ms->icon?$ms->icon:$this->ci_obj->config->item('default_link_icon'),
+						'uri' => $ms->dirc?$ms->dirc."/".$ms->cont."/".$ms->func:$ms->cont."/".$ms->func
 					);
 				}
 			}

@@ -14,7 +14,8 @@ $config['rbac_default_index']        = 'RBAC/menu';   //成功登录默认跳转
 $config['rbac_manage_menu_hidden']   = array('后台管理');		//后台管理导航中不显示的菜单
 $config['rbac_manage_node_hidden']   = array('manage');			//后台管理节点中不显示的菜单
 $config['rbac_notauth_dirc']         = array('');	     	    //默认无需认证目录array("public","manage")
-
+$config['default_link_icon']         = 'fa-edit';
+$config['default_menu_icon']         = 'fa-dashboard';
 
 /* End of file rbac.php */
 /* Location: ./application/third_party/rbac/config/rbac.php */
