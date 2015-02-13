@@ -18,11 +18,11 @@
 				if ($menu_child_data["self"]["uri"] == "/")
 				{
 					$slist = "<a href=''>";
-					$slist .= "<i class='fa ".$menu_child_data["self"]["icon"]."'></i>";
+					$slist .= "<span class='".$menu_child_data["self"]["icon"]."'></span>";
 					$slist .= "<span>".$menu_child_data["self"]["title"]."</span>";
 					$slist .= "</a>";
 				} else {
-					$link_content = $menu_child_data["self"]["icon"]?"<i class='fa ".$menu_child_data["self"]["icon"]."'></i>":$default_link_icon;
+					$link_content = $menu_child_data["self"]["icon"]?"<span class='".$menu_child_data["self"]["icon"]."'></span>":$default_link_icon;
 					$link_content .= "<span>".$menu_child_data["self"]["title"]."</span>";
 					$slist = anchor ( $menu_child_data["self"]["uri"], $link_content);
 				}
@@ -33,11 +33,11 @@
 			if($menu_data["self"]["uri"]=="/")
 			{
 				$flist = "<a href=''>";
-				$flist .= "<i class='fa ".$menu_data["self"]["icon"]."'></i>";
+				$flist .= "<span class='".$menu_data["self"]["icon"]."'></span>";
 				$flist .= "<span>".$menu_data["self"]["title"]."</span>";
 				$flist .= "</a>";
 			}else{
-				$link_content = "<i class='fa ".$menu_data["self"]["icon"]."'></i>";
+				$link_content = "<span class='".$menu_data["self"]["icon"]."'></span>";
 				$link_content .= "<span>".$menu_data["self"]["title"]."</span>";
 				$flist = anchor ( $menu_data["self"]["uri"], $link_content);
 			}
@@ -47,7 +47,7 @@
 			$li_start = "<li>";
 		}else {
 			if($menu_data["self"]["uri"]!="/"){
-				$link_content = "<i class='fa ".$menu_data["self"]["icon"]."'></i>";
+				$link_content = "<span class='".$menu_data["self"]["icon"]."'></span>";
 				$link_content .= "<span>".$menu_data["self"]["title"]."</span>";
 				$flist = anchor ( $menu_data["self"]["uri"], $link_content);
 				$menu_tmp =  $li_start.$flist.$menu_content.$li_end;

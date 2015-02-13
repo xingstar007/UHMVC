@@ -115,17 +115,18 @@ class Menu_model extends CI_Model
 	/**
 	 * 菜单编辑
 	 */
-	function update_menu($status,$title,$sort,$node,$p_id,$id)
+	function update_menu($status,$title,$icon,$sort,$node,$p_id,$id)
 	{
-		if($node == '')
+		if(empty($node)||is_null($node))
 		{
-			$node = null;
+			$node = 0;
 		}
-		if($p_id == '')
+		if(empty($p_id))
 		{
 			$p_id = null;
-		}		
-		$sql = "UPDATE rbac_menu SET {$status},title='{$title}',sort='{$sort}',node_id='{$node}',{$p_id} WHERE id = '{$id}'";
+		}
+		$sql = "UPDATE rbac_menu SET status='{$status}',title='{$title}',icon = '{$icon}',sort='{$sort}',node_id='{$node}',{$p_id} 
+				WHERE id = '{$id}'";
 		$this->db->query($sql);
 	}
 	

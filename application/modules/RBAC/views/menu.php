@@ -5,7 +5,7 @@
 <?php
 foreach($menu_data as $menu_frist)
 {
-	$icon = "<i class='fa ".$menu_frist["self"]['icon']."'></i>";
+	$icon = "<span class='".$menu_frist["self"]['icon']."'></span>";
 	$title = $menu_frist["self"]['title'];
 	$node = ($menu_frist["self"]['node']?$menu_frist["self"]['node'].$menu_frist["self"]['dcf']:"未挂接");
 	$sort = $menu_frist["self"]['sort'];
@@ -21,13 +21,13 @@ foreach($menu_data as $menu_frist)
 		<td><?php echo $status;?></td>
 		<td class="table-action pull-left">
 			<a href="<?php echo site_url("RBAC/menu/edit/$id/1/"); ?>">
-				<i class="fa fa-pencil"></i>
+				<span class="fa fa-pencil"></span>
 			</a>
 			<a href="<?php echo site_url("RBAC/menu/delete/$id"); ?>">
-				<i class="fa fa-trash-o"></i>	
+				<span class="fa fa-trash-o"></span>	
 			</a>
 			<a href="<?php echo site_url("RBAC/menu/add/1/$id"); ?>">
-				<i class="fa fa-plus"></i>		
+				<span class="fa fa-plus"></span>		
 			</a>
 		</td>
 	</tr>
@@ -36,7 +36,7 @@ foreach($menu_data as $menu_frist)
 	{
 		foreach($menu_frist["child"] as $menu_second)
 		{
-			$icon_child = "<i class='fa ".$menu_second["self"]['icon']."'></i>";
+			$icon_child = "<span class='".$menu_second["self"]['icon']."'></span>";
 			$title_child = $menu_second["self"]['title'];
 			$node_child = ($menu_second["self"]['node']?$menu_second["self"]['node'].$menu_second["self"]['dcf']:"未挂接");
 			$sort_child = $menu_second["self"]['sort'];
@@ -50,10 +50,10 @@ foreach($menu_data as $menu_frist)
 		<td><?php echo $status_child;?></td>
 		<td class="table-action pull-left">
 			<a href="<?php echo site_url("RBAC/menu/edit/$id_child/2/"); ?>">
-				<i class="fa fa-pencil"></i>
+				<span class="fa fa-pencil"></span>
 			</a>
 			<a href="<?php echo site_url("RBAC/menu/delete/$id_child"); ?>">
-				<i class="fa fa-trash-o"></i>	
+				<span class="fa fa-trash-o"></span>	
 			</a>
 		</td>
 	</tr>
