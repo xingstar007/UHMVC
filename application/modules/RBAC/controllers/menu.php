@@ -126,7 +126,8 @@ class Menu extends CI_Controller
 	/**
 	 * 菜单修改
 	 */
-	public function edit($id,$level,$p_id="NULL"){
+	public function edit($id,$level,$p_id="NULL")
+	{
 		if($this->input->post())
 		{
 			$id = $this->input->post("id");
@@ -142,8 +143,8 @@ class Menu extends CI_Controller
 					$p_id   = $this->input->post("p_id")=="NULL"?"p_id = NULL":"p_id='{$p_id}'";
 					$status = $this->input->post("status")==""?0:1;
 					$icon = $this->input->post("icon");
-					$this->menu_model->update_menu($status,$title,$sort,$node,$p_id,$id);
-					success_redirct("RBAC/menu/index","菜单修改成功！");
+					$this->menu_model->update_menu($status,$title,$icon,$sort,$node,$p_id,$id);
+					success_redirct("菜单修改成功！","RBAC/menu/index");
 				}else{
 					error_redirct("标题不能为空！");
 				}
@@ -155,7 +156,7 @@ class Menu extends CI_Controller
 		if($data)
 		{	
 			$node_data = $this->menu_model->show_node();
-			$this->load->view("RBAC/menu/edit",array("data"=>$data,"node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
+			$this->template->load_view("RBAC/menu/edit",array("data"=>$data,"node"=>$node_data,"level"=>$level,"p_id"=>$p_id));
 		}else{
 			error_redirct("未找到此菜单");
 			redirect(base_url('RBAC/menu/index'));

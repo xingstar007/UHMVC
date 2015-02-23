@@ -17,7 +17,8 @@
 				<select name="node"  class="form-control">
 				<option value='0'>不进行挂接</option>
 				<?php 
-				foreach($node as $vo){
+				foreach($node as $vo)
+				{
 					$select = $data["node_id"]==$vo->id?"selected":"";
 					echo "<option value='{$vo->id}' {$select} >{$vo->memo} [{$vo->dirc}/{$vo->cont}/{$vo->func}]</option>";
 				}

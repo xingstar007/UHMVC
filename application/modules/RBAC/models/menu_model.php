@@ -95,7 +95,7 @@ class Menu_model extends CI_Model
 	 */
 	function check_menu($id)
 	{
-		$sql = "SELECT rm.id,rm.title,rm.node_id,rm.p_id,rm.sort,rm.status,rn.memo 
+		$sql = "SELECT rm.id,rm.title,rm.icon,rm.node_id,rm.p_id,rm.sort,rm.status,rn.memo 
 				FROM rbac_menu rm left join rbac_node rn on rm.node_id = rn.id 
 				WHERE rm.id =".$id;
 		$query = $this->db->query($sql);
