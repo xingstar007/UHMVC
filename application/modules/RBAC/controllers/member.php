@@ -2,8 +2,8 @@
 /**
  * CI RBAC
  * RBAC管理后台中用户模块
- * @author		toryzen
- * @link		http://www.toryzen.com
+ * @author		star
+ * @link		http://www.icyao.com
  */
 class Member extends MX_Controller
 {
@@ -13,13 +13,15 @@ class Member extends MX_Controller
 		parent::__construct();
 		$this->load->model('RBAC/member_model');
 	}
+	
 	/**
 	 * 人员列表
 	 * @param number $page
 	 */
+	
 	public function index($page=1)
 	{
-		$cnt_data = $this->member_model->getmembercount();
+		$cnt_data = $this->member_model->get_member_count();
 		
 		//分页
 		$this->load->library('pagination');
@@ -30,8 +32,8 @@ class Member extends MX_Controller
 		$config['use_page_numbers'] = TRUE;
 		$this->pagination->initialize($config);
 		
-		$data = $this->member_model->getmemberlist($page,$config['per_page']);
-		$this->template->load_view('RBAC/manage/member',array("data"=>$data));
+		$data = $this->member_model->get_member_list($page,$config['per_page']);
+		$this->template->load_view('RBAC/member',array("data"=>$data));
 	}
 	
 	/**
@@ -40,8 +42,8 @@ class Member extends MX_Controller
 	 */
 	public function edit($id)
 	{
-		$data = $this->member_model->getmemberrole($id);
-		$role_data = $this->member_model->getrole();
+		$data = $this->member_model->get_member_role($id);
+		$role_data = $this->member_model->get_role();
 		if($data)
 		{
 			if($this->input->post())
@@ -59,21 +61,21 @@ class Member extends MX_Controller
 					{
 						if($nickname&&$email)
 						{
-							$this->member_model->updatemember($id,$password,$status,$role,$nickname,$email);
-							success_redirct("manage/member/index","用户信息修改成功！");
+							$this->member_model->update_member($id,$password,$status,$role,$nickname,$email);
+							success_redirct("用户信息修改成功！","RBAC/member/index");
 						}else{
-							error_redirct("","信息填写不全！");
+							error_redirct("信息填写不全！");
 						}
 					}else{
-						error_redirct("","新密码两次输入验证不符！");
+						error_redirct("新密码两次输入验证不符！");
 					}
 				}else{
-					error_redirct("","未找到此用户");
+					error_redirct("未找到此用户");
 				}
 			}
-			$this->load->view("RBAC/manage/member/edit",array("data"=>$data,"role_data"=>$role_data));
+			$this->template->load_view("RBAC/member/edit",array("data"=>$data,"role_data"=>$role_data));
 		}else{
-			error_redirct("RBAC/manage/member/index","未找到此用户");
+			error_redirct("未找到此用户","RBAC/member/index");
 		}
 	}
 	
@@ -82,7 +84,7 @@ class Member extends MX_Controller
 	 */
 	public function add()
 	{
-		$role_data = $this->member_model->getrole();
+		$role_data = $this->member_model->get_role();
 		if($this->input->post())
 		{
 			$username = $this->input->post("username");
@@ -96,21 +98,21 @@ class Member extends MX_Controller
 			{
 				if($username&&$nickname&&$email&&$password2)
 				{
-					$result = $this->member_model->insertmember($username,$nickname,$email,$password2,$role,$status);
+					$result = $this->member_model->insert_member($username,$nickname,$email,$password2,$role,$status);
 					if($result['flag'])
 					{
-						success_redirct("manage/member/index","用户新增成功！");
+						success_redirct("用户新增成功！","RBAC/member/index");
 					}else {
-						error_redirct("",$result[msg]);
+						error_redirct($result[msg]);
 					}
 				}else{
-					error_redirct("","信息填写不全！");
+					error_redirct("信息填写不全！");
 				}
 			}else{
-				error_redirct("","新密码两次输入验证不符！");
+				error_redirct("新密码两次输入验证不符！");
 			}
 		}
-		$this->load->view("RBAC/manage/member/add",array("role_data"=>$role_data));
+		$this->template->load_view("RBAC/member/add",array("role_data"=>$role_data));
 	}
 	
 	/**
@@ -119,7 +121,7 @@ class Member extends MX_Controller
 	 */
 	public function delete($id)
 	{
-		$data = $this->member_model->getmember($id);
+		$data = $this->member_model->get_member($id);
 		if($data)
 		{
 			if($this->input->post())
@@ -127,15 +129,15 @@ class Member extends MX_Controller
 				$verfiy = $this->input->post("verfiy");
 				if($verfiy)
 				{
-					$this->member_model->deletemember($id);
-					success_redirct("RBAC/manage/member/index","用户删除成功");
+					$this->member_model->delete_member($id);
+					success_redirct("用户删除成功","RBAC/member/index");
 				}else{
-					error_redirct("RBAC/manage/member/index","操作失败");
+					error_redirct("操作失败","RBAC/member/index");
 				}
 			}
-			$this->load->view("RBAC/manage/member/delete",array("data"=>$data));
+			$this->template->load_view("RBAC/member/delete",array("data"=>$data));
 		}else{
-			error_redirct("RBAC/manage/member/index","未找到此用户");
+			error_redirct("未找到此用户","RBAC/member/index");
 		}
 	}
 

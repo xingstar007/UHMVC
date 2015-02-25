@@ -1,7 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-
-
+/**
+ * CI RBAC
+ * RBAC管理后台中成员模型
+ * @author		star
+ * @link		http://www.icyao.com
+ */
 class Member_model extends CI_Model
 {
 	function __construct()
@@ -10,14 +13,14 @@ class Member_model extends CI_Model
 		$this->db = $this->load->database('rbac',true);
 	}
 	
-	function getmembercount()
+	function get_member_count()
 	{
 		$sql = "SELECT COUNT(1) as cnt FROM rbac_user";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
 	
-	function getmemberlist($page,$per_page)
+	function get_member_list($page,$per_page)
 	{
 		$sql = "SELECT ru.*,rolename 
 				FROM rbac_user ru LEFT JOIN rbac_role rr  ON rr.id = ru.role_id 
@@ -26,7 +29,7 @@ class Member_model extends CI_Model
 		return $query->result();
 	}
 	
-	function getmemberrole($id)
+	function get_member_role($id)
 	{
 		$sql = "SELECT ru.*,rolename 
 				FROM rbac_user ru LEFT JOIN rbac_role rr  ON rr.id = ru.role_id 
@@ -35,14 +38,14 @@ class Member_model extends CI_Model
 		return $query->row_array();
 	}
 	
-	function getrole()
+	function get_role()
 	{
 		$sql = "SELECT id,rolename FROM rbac_role WHERE status = 1";
 		$query = $this->db->query($sql);
 		return  $query->result();
 	}
 	
-	function updatemember($id,$password,$status,$role,$nickname,$email)
+	function update_member($id,$password,$status,$role,$nickname,$email)
 	{
 		if($password)
 		{
@@ -66,7 +69,7 @@ class Member_model extends CI_Model
 		$this->db->query($sql);
 	}
 	
-	function insertmember($username,$nickname,$email,$password,$role,$status)
+	function insert_member($username,$nickname,$email,$password,$role,$status)
 	{
 		$sql = "SELECT * FROM rbac_user WHERE username = '".$username."'";
 		$query = $this->db->query($sql);
@@ -99,14 +102,14 @@ class Member_model extends CI_Model
 		return $result;
 	}
 	
-	function getmember($id)
+	function get_member($id)
 	{
 		$sql = "SELECT * FROM rbac_user WHERE id = ".$id;
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
 	
-	function deletemember($id)
+	function delete_member($id)
 	{
 		$sql = "DELETE FROM rbac_user WHERE id = ".$id." ";
 		$this->db->query($sql);

@@ -108,7 +108,8 @@ class Menu_model extends CI_Model
 	 */
 	function delete_menu($menu_data)
 	{
-		$sql = "DELETE FROM rbac_menu WHERE id in (".$menu_data["id_list"].") ";
+		$sql = "DELETE FROM rbac_menu 
+				WHERE id in (".$menu_data["id_list"].") ";
 		$this->db->query($sql);
 	}
 

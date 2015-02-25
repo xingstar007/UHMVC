@@ -55,14 +55,14 @@ class Menu extends CI_Controller
 	{
 		if($this->menu_model->check_menu($id))
 		{
+			//获取当前节点及其子节点
+			$menu_data = $this->menu_model->get_menu_list($id);
 			if($this->input->post())
 			{
-				$verfiy = $this->input->post("verfiy");
+// 				$verfiy = $this->input->post("verfiy");
 				$this->menu_model->delete_menu($menu_data);
 				success_redirct("菜单删除成功","RBAC/menu/index");
 			}
-			//获取当前节点及其子节点
-			$menu_data = $this->menu_model->get_menu_list($id);
 			foreach($menu_data['first'] as $menu_first_data)
 			{
 				$return[$menu_first_data->id]['self'] = array(

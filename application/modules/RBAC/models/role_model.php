@@ -8,14 +8,14 @@ class Role_model extends CI_Model
 	}
 	
 	
-	function getrolecount()
+	function get_role_count()
 	{
 		$sql = "SELECT COUNT(1) as cnt FROM rbac_role";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
 	
-	function getrolelist($page,$per_page)
+	function get_role_list($page,$per_page)
 	{
 		$sql = "SELECT * FROM rbac_role 
 				LIMIT ".(($page-1)*$per_page).",".$per_page;
@@ -23,28 +23,28 @@ class Role_model extends CI_Model
 		return $query->result();
 	}
 	
-	function getrolebyid($id)
+	function get_role_by_id($id)
 	{
 		$sql = "SELECT * FROM rbac_role WHERE id = ".$id;
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
 	
-	function updaterole($rolename,$status,$id)
+	function update_role($rolename,$status,$id)
 	{
 		$sql = "UPDATE rbac_role set `rolename`='{$rolename}',`status`='{$status}' WHERE id = {$id}";
 		$this->db->query($sql);
 		return $this->db->affected_rows();
 	}
 	
-	function getrolebyname($rolename)
+	function get_role_by_name($rolename)
 	{
 		$sql = "SELECT * FROM rbac_role WHERE rolename = '".$rolename."'";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
 	
-	function insertrole($rolename,$status)
+	function insert_role($rolename,$status)
 	{
 		$sql = "INSERT INTO rbac_role (`rolename`,`status`)
 				values('{$rolename}','{$status}')";
@@ -52,7 +52,7 @@ class Role_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
-	function deleterole($id)
+	function delete_role($id)
 	{
 		$sql = "DELETE FROM `rbac_role` WHERE id = ".$id." ";
 		$this->db->query($sql);
@@ -78,7 +78,7 @@ class Role_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
-	function getnodelist()
+	function get_node_list()
 	{
 		$rbac_where = "";
 		$node_hidden_array = $this->config->item('rbac_manage_node_hidden');
@@ -100,7 +100,7 @@ class Role_model extends CI_Model
 		return $node_list;
 	}
 	
-	function getrolenodelist($id)
+	function get_role_node_list($id)
 	{
 		$sql = "SELECT id,dirc,cont,func 
 				FROM `rbac_node` 

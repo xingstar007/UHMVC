@@ -7,22 +7,26 @@ class Node_model extends CI_Model
 		$this->db = $this->load->database('rbac',true);
 	}
 	
-	function getnodelist()
+	function get_node_list()
 	{
 		$rbac_where = "";
 		$node_hidden_array = $this->config->item('rbac_manage_node_hidden');
-		if(!empty($node_hidden_array)){
+		if(!empty($node_hidden_array))
+		{
 			$rbac_where = "WHERE ";
-			foreach($node_hidden_array as $node_hidden){
+			foreach($node_hidden_array as $node_hidden)
+			{
 				$rbac_where.= "dirc != '$node_hidden' AND ";
 			}
 			$rbac_where = substr($rbac_where,0,-4);
 		}
-		$query = $this->db->query("SELECT * FROM rbac_node {$rbac_where} ORDER BY dirc,cont,func");
+		$sql = "SELECT * FROM rbac_node {$rbac_where} 
+				ORDER BY dirc,cont,func";
+		$query = $this->db->query($sql);
 		return $query->result();
 	}
 
-	function  insternode($dirc,$cont,$func,$status,$memo)
+	function  inster_node($dirc,$cont,$func,$status,$memo)
 	{
 		$sql = "SELECT id FROM rbac_node 
 				WHERE dirc = '".$dirc."' AND cont = '".$cont."' AND func = '".$func."'";
@@ -48,7 +52,7 @@ class Node_model extends CI_Model
 		return $result;
 	}
 	
-	function deletenode($where_dirc,$where_cont,$where_func)
+	function delete_node($where_dirc,$where_cont,$where_func)
 	{
 		$sql = "SELECT GROUP_CONCAT(id) as node_id 
 				FROM rbac_node WHERE {$where_dirc} {$where_cont} {$where_func}";
@@ -62,7 +66,7 @@ class Node_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
-	function getnode($id)
+	function get_node($id)
 	{
 		$sql = "SELECT * FROM rbac_node WHERE id = ".$id;
 		$query = $this->db->query($sql);
@@ -70,7 +74,7 @@ class Node_model extends CI_Model
 	}
 	
 	
-	function updatenode($memo,$status,$id)
+	function update_node($memo,$status,$id)
 	{
 		$sql = "UPDATE rbac_node set `memo`='{$memo}',`status` = '{$status}' WHERE id = {$id}";
 		$this->db->query($sql);

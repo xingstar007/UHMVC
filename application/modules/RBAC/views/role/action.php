@@ -2,31 +2,49 @@
 	.table td:first-child{width:30%}
 	.table td:nth-child(2){width:40%}
 </style>
-<?php 
-foreach($node as $key=>$mn){
-	echo '<table class="table well">';
-	printf('<tr>
-		  	<td><span class="glyphicon glyphicon-folder-open"></span> %s</td>
-		  	<td></td>
-		  	<td></td>
-		  </tr>',$key);
-	foreach($mn as $mn_key=>$cmn){
-		printf('<tr>
-			  	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list-alt"></span> %s</td>
-			  	<td></td>
-			  	<td></td>
-			  </tr>',$mn_key);
-		foreach($cmn as $cmn_key=>$gcmn){
-			printf('<tr>
-				  	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-minus"></span> '.$cmn_key.'</td>
-				  	<td>%s</td>
-				  	<td><div class="btn-group  btn-group-xs pull-right">
-				  		  <a class="btn btn-default btn-%s" href="%s">%s</a>
+<div class="panel panel-default">
+	<div class="table-responsive" >
+		<?php 
+		foreach($node as $key=>$mn)
+		{
+		?>
+		<table class="table well">
+			<tr>
+				<td><span class="glyphicon glyphicon-folder-open" style = "margin:0 10px 0 0;"></span><?php echo $key; ?></td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		 	<?php 
+			foreach($mn as $mn_key=>$cmn)
+			{
+			?>
+			<tr>
+				<td><span class="glyphicon glyphicon-list-alt" style = "margin:0 10px 0 20px;"></span><?php echo $mn_key;?></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<?php 
+			foreach($cmn as $cmn_key=>$gcmn)
+			{
+			?>
+			<tr>
+				<td><span class="glyphicon glyphicon-minus" style = "margin:0 10px 0 40px;"></span><?php echo $cmn_key;?></td>
+				<td><?php echo $gcmn->memo;?></td>
+				<td>
+					<div class="btn-group  btn-group-xs pull-right">
+						<a class="btn btn-default btn-<?php echo (@$rnl[$key][$mn_key][$cmn_key]?"danger":"success")?>" href="<?php echo site_url("RBAC/role/action/".$role_id."/".$gcmn->id);?>">
+							<?php echo (@$rnl[$key][$mn_key][$cmn_key]?"取消授权":"节点授权") ?>
+						</a>
 					</div>
 			  	</td>
-			  	</tr>',$gcmn->memo,(@$rnl[$key][$mn_key][$cmn_key]?"danger":"success"),site_url("manage/role/action/".$role_id."/".$gcmn->id),(@$rnl[$key][$mn_key][$cmn_key]?"取消授权":"节点授权"));
+			</tr>
+			<?php 
+			}
+			}
+			?>
+		</table>
+		<?php
 		}
-	}
-	echo '</table>';
-}
-?>
+		?>
+	</div>
+</div>
